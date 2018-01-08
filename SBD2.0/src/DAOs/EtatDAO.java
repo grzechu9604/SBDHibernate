@@ -9,6 +9,6 @@ public class EtatDAO extends AbstractDAO<Etat> {
     private static final String getAllHql = "select e from Etat e";
 
     public List<Etat> findAll(SessionFactory factory){
-        return this.execute(factory, getAllHql);
+        return this.getResultList(factory, getAllHql);
     }
 }

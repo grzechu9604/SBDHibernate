@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class AbstractDAO<T>{
 
-    protected List<T> execute(SessionFactory factory, String hql){
+    protected List<T> getResultList(SessionFactory factory, String hql){
         Session session = factory.getCurrentSession();
         session.getTransaction().begin();
         Query query = session.createQuery(hql);

@@ -9,6 +9,6 @@ public class CzescDAO extends AbstractDAO<Czesc> {
     private static final String getAllHql = "select c from Czesc c";
 
     public List<Czesc> findAll(SessionFactory factory){
-        return this.execute(factory, getAllHql);
+        return this.getResultList(factory, getAllHql);
     }
 }
