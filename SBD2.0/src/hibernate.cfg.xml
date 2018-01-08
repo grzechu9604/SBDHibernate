@@ -41,6 +41,8 @@
         <mapping class="Model.Czesc" />
         <mapping class="Model.Dzial" />
         <mapping class="Model.Etat" />
+        <mapping class="Model.Firma" />
+
 
     </session-factory>
 
