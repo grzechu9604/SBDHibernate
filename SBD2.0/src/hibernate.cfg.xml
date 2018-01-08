@@ -38,6 +38,7 @@
         <mapping class="Model.Osoba" />
         <mapping class="Model.Pracownik" />
         <mapping class="Model.Klient" />
+        <mapping class="Model.Czesc" />
 
     </session-factory>
 
