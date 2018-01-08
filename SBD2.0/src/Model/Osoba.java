@@ -7,7 +7,8 @@ import javax.persistence.*;
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Osoba {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "OSOBY_SEQ", sequenceName = "OSOBY_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OSOBY_SEQ")
     @Column(name = "ID", nullable = false)
     private Long id;
     @Column(name = "IMIE", nullable = false)

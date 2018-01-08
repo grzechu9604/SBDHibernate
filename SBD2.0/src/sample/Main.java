@@ -3,6 +3,7 @@ package sample;
 import java.math.BigDecimal;
 import java.util.List;
 
+import DAOs.PracownikDAO;
 import Model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,13 +28,10 @@ public class Main extends Application {
     public static void main(String[] args) {
         SessionFactory factory = HibernateUtils.getSessionFactory();
 
-        Session session = factory.getCurrentSession();
         try{
-            session.getTransaction().begin();
+            /*
             //String sql = "select p from Pojazd p";
             String sql = "select p from Pojazd p where p.nr_pojazdu = 1";
-            //BigDecimal result = (BigDecimal)session.createNativeQuery(sql).getSingleResult();
-            //System.out.println(result);
             Query query = session.createQuery(sql);
             List<Pojazd> pojazdy = query.getResultList();
             for ( Pojazd p : pojazdy){
@@ -47,13 +45,21 @@ public class Main extends Application {
                 System.out.println(o.getImie());
             }
 
-            sql = "select p from Pracownik p";
-            Query pracownikQuery = session.createQuery(sql);
-            List<Pracownik> pracownikList = pracownikQuery.getResultList();
-            for ( Pracownik p : pracownikList){
-                System.out.println(p.getNr_dzialu());
-            }
+            */
+            PracownikDAO pracownikDAO = new PracownikDAO();
+            Pracownik p = new Pracownik();
+            p.setNazwa_etatu("SPAWACZ");
+            p.setNr_dzialu(1L);
+            p.setImie("Andrzej");
+            p.setNazwisko("Janowski");
+            p.setNr_telefonu("889789456");
+            pracownikDAO.insert(factory, p);
 
+            List<Pracownik> pracownikList = pracownikDAO.findAll(factory);
+            for ( Pracownik x : pracownikList){
+                System.out.println(x.getImie() + " " + x.getNazwisko());
+            }
+            /*
             sql = "select k from Klient k";
             Query klientQuery = session.createQuery(sql);
             List<Klient> klientList = klientQuery.getResultList();
@@ -99,16 +105,13 @@ public class Main extends Application {
             sql = "select e from Etat e";
             Query etatQuery = session.createQuery(sql);
             List<Etat> etatList = etatQuery.getResultList();
-            for ( Etat e : etatList){
+            for (Etat e : etatList){
                 System.out.println(e.getStawkaGodzinowa());
             }
+            */
 
-            session.getTransaction().commit();
-            session.close();
         }catch (Exception e){
             e.printStackTrace();
-            session.getTransaction().rollback();
-            session.close();
         }
     }
 }
