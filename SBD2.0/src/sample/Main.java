@@ -3,10 +3,7 @@ package sample;
 import java.math.BigDecimal;
 import java.util.List;
 
-import Model.Klient;
-import Model.Osoba;
-import Model.Pojazd;
-import Model.Pracownik;
+import Model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,31 +34,73 @@ public class Main extends Application {
             String sql = "select p from Pojazd p where p.nr_pojazdu = 1";
             //BigDecimal result = (BigDecimal)session.createNativeQuery(sql).getSingleResult();
             //System.out.println(result);
-            Query<Pojazd>  query = session.createQuery(sql);
+            Query query = session.createQuery(sql);
             List<Pojazd> pojazdy = query.getResultList();
             for ( Pojazd p : pojazdy){
                 System.out.println(p.getMarka());
             }
 
             sql = "select o from Osoba o";
-            Query<Osoba> osobaQuery = session.createQuery(sql);
+            Query osobaQuery = session.createQuery(sql);
             List<Osoba> osobaList = osobaQuery.getResultList();
             for ( Osoba o : osobaList){
                 System.out.println(o.getImie());
             }
 
             sql = "select p from Pracownik p";
-            Query<Pracownik> pracownikQuery = session.createQuery(sql);
+            Query pracownikQuery = session.createQuery(sql);
             List<Pracownik> pracownikList = pracownikQuery.getResultList();
             for ( Pracownik p : pracownikList){
                 System.out.println(p.getNr_dzialu());
             }
 
             sql = "select k from Klient k";
-            Query<Klient> klientQuery = session.createQuery(sql);
+            Query klientQuery = session.createQuery(sql);
             List<Klient> klientList = klientQuery.getResultList();
             for ( Klient k : klientList){
                 System.out.println(k.getRabat());
+            }
+
+            sql = "select k from Kategoria k";
+            Query kategoriaQuery = session.createQuery(sql);
+            List<Kategoria> kategoriaList = kategoriaQuery.getResultList();
+            for ( Kategoria k : kategoriaList){
+                System.out.println(k.getOpis());
+            }
+
+            sql = "select d from Dzial d";
+            Query dzialQuery = session.createQuery(sql);
+            List<Dzial> dzialList = dzialQuery.getResultList();
+            for ( Dzial d : dzialList){
+                System.out.println(d.getNazwa());
+            }
+
+            sql = "select z from Zlecenie z";
+            Query zlecenieQuery = session.createQuery(sql);
+            List<Zlecenie> zlecenieList = zlecenieQuery.getResultList();
+            for ( Zlecenie z : zlecenieList){
+                System.out.println(z.getDataWplywu());
+            }
+
+            sql = "select c from Czesc c";
+            Query czescQuery = session.createQuery(sql);
+            List<Czesc> czescList = czescQuery.getResultList();
+            for ( Czesc c : czescList){
+                System.out.println(c.getCenaZakupu());
+            }
+
+            sql = "select f from Firma f";
+            Query firmaQuery = session.createQuery(sql);
+            List<Firma> firmaList = firmaQuery.getResultList();
+            for ( Firma f : firmaList){
+                System.out.println(f.getNazwa());
+            }
+
+            sql = "select e from Etat e";
+            Query etatQuery = session.createQuery(sql);
+            List<Etat> etatList = etatQuery.getResultList();
+            for ( Etat e : etatList){
+                System.out.println(e.getStawkaGodzinowa());
             }
 
             session.getTransaction().commit();

@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "ZLECEINIA")
+@Table(name = "ZLECENIA")
 public class Zlecenie {
     @Id
     @Column(name = "NR_NAPRAWY", nullable = false)

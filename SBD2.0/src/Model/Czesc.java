@@ -17,7 +17,7 @@ public class Czesc {
     private Double cenaSprzedazy;
     @Column(name = "KATEGORIE_NAZWA", nullable = false)
     private String nazwaKategorii;
-    @Column(name = "CENA_SPRZEDAZY")
+    @Column(name = "ZLECENIE_NR_NAPRAWY")
     private String zlecenieNrNaprawy;
 
     public Long getId() {
