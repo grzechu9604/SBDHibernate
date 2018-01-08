@@ -43,6 +43,8 @@
         <mapping class="Model.Etat" />
         <mapping class="Model.Firma" />
         <mapping class="Model.Kategoria" />
+        <mapping class="Model.Zlecenie" />
+
 
 
     </session-factory>
