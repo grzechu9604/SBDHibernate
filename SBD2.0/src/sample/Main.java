@@ -3,7 +3,7 @@ package sample;
 import java.math.BigDecimal;
 import java.util.List;
 
-import DAOs.PracownikDAO;
+import DAOs.*;
 import Model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -29,87 +29,65 @@ public class Main extends Application {
         SessionFactory factory = HibernateUtils.getSessionFactory();
 
         try{
-            /*
-            //String sql = "select p from Pojazd p";
-            String sql = "select p from Pojazd p where p.nr_pojazdu = 1";
-            Query query = session.createQuery(sql);
-            List<Pojazd> pojazdy = query.getResultList();
-            for ( Pojazd p : pojazdy){
-                System.out.println(p.getMarka());
-            }
-
-            sql = "select o from Osoba o";
-            Query osobaQuery = session.createQuery(sql);
-            List<Osoba> osobaList = osobaQuery.getResultList();
-            for ( Osoba o : osobaList){
-                System.out.println(o.getImie());
-            }
-
-            */
-            PracownikDAO pracownikDAO = new PracownikDAO();
-            Pracownik p = new Pracownik();
-            p.setNazwa_etatu("SPAWACZ");
-            p.setNr_dzialu(1L);
-            p.setImie("Andrzej");
-            p.setNazwisko("Janowski");
-            p.setNr_telefonu("889789456");
-            pracownikDAO.insert(factory, p);
-
-            List<Pracownik> pracownikList = pracownikDAO.findAll(factory);
-            for ( Pracownik x : pracownikList){
-                System.out.println(x.getImie() + " " + x.getNazwisko());
-            }
-            /*
-            sql = "select k from Klient k";
-            Query klientQuery = session.createQuery(sql);
-            List<Klient> klientList = klientQuery.getResultList();
-            for ( Klient k : klientList){
-                System.out.println(k.getRabat());
-            }
-
-            sql = "select k from Kategoria k";
-            Query kategoriaQuery = session.createQuery(sql);
-            List<Kategoria> kategoriaList = kategoriaQuery.getResultList();
-            for ( Kategoria k : kategoriaList){
-                System.out.println(k.getOpis());
-            }
-
-            sql = "select d from Dzial d";
-            Query dzialQuery = session.createQuery(sql);
-            List<Dzial> dzialList = dzialQuery.getResultList();
-            for ( Dzial d : dzialList){
-                System.out.println(d.getNazwa());
-            }
-
-            sql = "select z from Zlecenie z";
-            Query zlecenieQuery = session.createQuery(sql);
-            List<Zlecenie> zlecenieList = zlecenieQuery.getResultList();
-            for ( Zlecenie z : zlecenieList){
-                System.out.println(z.getDataWplywu());
-            }
-
-            sql = "select c from Czesc c";
-            Query czescQuery = session.createQuery(sql);
-            List<Czesc> czescList = czescQuery.getResultList();
+            CzescDAO czescDAO = new CzescDAO();
+            List<Czesc> czescList = czescDAO.findAll(factory);
             for ( Czesc c : czescList){
                 System.out.println(c.getCenaZakupu());
             }
 
-            sql = "select f from Firma f";
-            Query firmaQuery = session.createQuery(sql);
-            List<Firma> firmaList = firmaQuery.getResultList();
+            DzialDAO dzialDAO = new DzialDAO();
+            List<Dzial> dzialList = dzialDAO.findAll(factory);
+            for ( Dzial d : dzialList){
+                System.out.println(d.getNazwa());
+            }
+
+            EtatDAO etatDAO = new EtatDAO();
+            List<Etat> etatList = etatDAO.findAll(factory);
+            for (Etat e : etatList){
+                System.out.println(e.getStawkaGodzinowa());
+            }
+
+            FirmaDAO firmaDAO = new FirmaDAO();
+            List<Firma> firmaList = firmaDAO.findAll(factory);
             for ( Firma f : firmaList){
                 System.out.println(f.getNazwa());
             }
 
-            sql = "select e from Etat e";
-            Query etatQuery = session.createQuery(sql);
-            List<Etat> etatList = etatQuery.getResultList();
-            for (Etat e : etatList){
-                System.out.println(e.getStawkaGodzinowa());
+            KategoriaDAO kategoriaDAO = new KategoriaDAO();
+            List<Kategoria> kategoriaList = kategoriaDAO.findAll(factory);
+            for ( Kategoria k : kategoriaList){
+                System.out.println(k.getOpis());
             }
-            */
 
+            KlientDAO klientDAO = new KlientDAO();
+            List<Klient> klientList = klientDAO.findAll(factory);
+            for ( Klient k : klientList){
+                System.out.println(k.getRabat());
+            }
+
+            OsobaDAO osobaDAO = new OsobaDAO();
+            List<Osoba> osobaList = osobaDAO.findAll(factory);
+            for ( Osoba o : osobaList){
+                System.out.println(o.getImie());
+            }
+
+            PojazdDAO pojazdDAO = new PojazdDAO();
+            List<Pojazd> pojazdy = pojazdDAO.findAll(factory);
+            for ( Pojazd p : pojazdy){
+                System.out.println(p.getMarka());
+            }
+
+            PracownikDAO pracownikDAO = new PracownikDAO();
+            List<Pracownik> pracownikList = pracownikDAO.findAll(factory);
+            for ( Pracownik x : pracownikList){
+                System.out.println(x.getImie() + " " + x.getNazwisko());
+            }
+
+            ZlecenieDAO zlecenieDAO = new ZlecenieDAO();
+            List<Zlecenie> zlecenieList = zlecenieDAO.findAll(factory);
+            for ( Zlecenie z : zlecenieList){
+                System.out.println(z.getDataWplywu());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
