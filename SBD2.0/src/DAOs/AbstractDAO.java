@@ -68,6 +68,24 @@ public abstract class AbstractDAO<T>{
         return element;
     }
 
+    protected T getSingleByOneEqualCondition(SessionFactory factory, String key, String value){
+        Session session = factory.getCurrentSession();
+        session.getTransaction().begin();
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(entityBean);
+        Root<T> root = query.from(entityBean);
+
+        query.select(root).where(builder.equal(root.get(key), value));
+        Query<T> q=session.createQuery(query);
+
+        T element = q.getSingleResult();
+        session.getTransaction().commit();
+
+        return element;
+
+    }
+
     public boolean insert(SessionFactory factory, T element){
         Session session = factory.getCurrentSession();
         session.getTransaction().begin();

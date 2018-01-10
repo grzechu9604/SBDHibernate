@@ -24,20 +24,7 @@ public class PracownikDAO extends AbstractDAO<Pracownik> {
     }
 
     public Pracownik getPracownikById(SessionFactory factory, Long id){
-        Session session = factory.getCurrentSession();
-        session.getTransaction().begin();
-
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Pracownik> query = builder.createQuery(Pracownik.class);
-        Root<Pracownik> root = query.from(Pracownik.class);
-
-        query.select(root).where(builder.equal(root.get("id"), id));
-        Query<Pracownik> q=session.createQuery(query);
-
-        Pracownik p = q.getSingleResult();
-        session.getTransaction().commit();
-
-        return p;
+        return this.getSingleByOneEqualCondition(factory, "id", id.toString());
     }
 }
 
