@@ -17,15 +17,6 @@ public abstract class AbstractDAO<T>{
 
     private Class entityBean;
 
-    protected List<T> getResultList(SessionFactory factory, String hql){
-        Session session = factory.getCurrentSession();
-        session.getTransaction().begin();
-        Query query = session.createQuery(hql);
-        List<T> list = query.getResultList();
-        session.getTransaction().commit();
-        return list;
-    }
-
     public List<T> findAll(SessionFactory factory){
         Session session = factory.getCurrentSession();
         session.getTransaction().begin();
@@ -56,15 +47,6 @@ public abstract class AbstractDAO<T>{
         T element = q.getSingleResult();
         session.getTransaction().commit();
 
-        return element;
-    }
-
-    protected T getSingleResult(SessionFactory factory, String hql){
-        Session session = factory.getCurrentSession();
-        session.getTransaction().begin();
-        Query query = session.createQuery(hql);
-        T element = (T)query.getSingleResult();
-        session.getTransaction().commit();
         return element;
     }
 
