@@ -83,7 +83,23 @@ public abstract class AbstractDAO<T>{
         session.getTransaction().commit();
 
         return element;
+    }
 
+    protected List<T> getListByOneEqualCondition(SessionFactory factory, String key, String value){
+        Session session = factory.getCurrentSession();
+        session.getTransaction().begin();
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(entityBean);
+        Root<T> root = query.from(entityBean);
+
+        query.select(root).where(builder.equal(root.get(key), value));
+        Query<T> q=session.createQuery(query);
+
+        List<T> elements = q.getResultList();
+        session.getTransaction().commit();
+
+        return elements;
     }
 
     public boolean insert(SessionFactory factory, T element){
