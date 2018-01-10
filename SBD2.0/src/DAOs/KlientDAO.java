@@ -8,6 +8,10 @@ import java.util.List;
 public class KlientDAO extends AbstractDAO<Klient> {
     private static final String getAllHql = "select k from Klient k";
 
+    public KlientDAO() {
+        super(new Klient());
+    }
+
     public List<Klient> findAll(SessionFactory factory){
         return this.getResultList(factory, getAllHql);
     }

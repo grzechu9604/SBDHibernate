@@ -8,6 +8,10 @@ import java.util.List;
 public class EtatDAO extends AbstractDAO<Etat> {
     private static final String getAllHql = "select e from Etat e";
 
+    public EtatDAO() {
+        super(new Etat());
+    }
+
     public List<Etat> findAll(SessionFactory factory){
         return this.getResultList(factory, getAllHql);
     }

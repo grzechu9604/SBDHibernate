@@ -8,6 +8,10 @@ import java.util.List;
 public class PojazdDAO extends AbstractDAO<Pojazd> {
     private static final String getAllHql = "select p from Pojazd p";
 
+    public PojazdDAO() {
+        super(new Pojazd());
+    }
+
     public List<Pojazd> findAll(SessionFactory factory){
         return this.getResultList(factory, getAllHql);
     }

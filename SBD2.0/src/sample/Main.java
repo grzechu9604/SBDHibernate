@@ -1,6 +1,5 @@
 package sample;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import DAOs.*;
@@ -10,9 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 
 public class Main extends Application {
 
@@ -39,6 +36,7 @@ public class Main extends Application {
             List<Dzial> dzialList = dzialDAO.findAll(factory);
             for ( Dzial d : dzialList){
                 System.out.println(d.getNazwa());
+                System.out.println(d.getSzef(factory).getImie());
             }
 
             EtatDAO etatDAO = new EtatDAO();
@@ -88,8 +86,12 @@ public class Main extends Application {
             for ( Zlecenie z : zlecenieList){
                 System.out.println(z.getDataWplywu());
             }
+
         }catch (Exception e){
             e.printStackTrace();
+        }
+        finally {
+            factory.close();
         }
     }
 }

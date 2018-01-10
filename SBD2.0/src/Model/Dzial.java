@@ -1,5 +1,8 @@
 package Model;
 
+import DAOs.PracownikDAO;
+import org.hibernate.SessionFactory;
+
 import javax.persistence.*;
 
 @Entity
@@ -38,4 +41,10 @@ public class Dzial {
     public void setIdSzefa(Long idSzefa) {
         this.idSzefa = idSzefa;
     }
+
+    public Pracownik getSzef(SessionFactory factory){
+        PracownikDAO pracownikDAO = new PracownikDAO();
+        return pracownikDAO.getPracownikById(factory, this.idSzefa);
+    }
+
 }
