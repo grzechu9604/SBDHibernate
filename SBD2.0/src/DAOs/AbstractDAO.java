@@ -11,14 +11,16 @@ import java.util.List;
 
 public abstract class AbstractDAO<T>{
 
-    public AbstractDAO(T bean){
+    public AbstractDAO(SessionFactory factory, T bean) {
         this.entityBean = bean.getClass();
+        this.factory = factory;
     }
 
     private final Class entityBean;
+    final SessionFactory factory;
 
-    public List<T> findAll(SessionFactory factory){
-        Session session = factory.getCurrentSession();
+    public List<T> findAll() {
+        Session session = this.factory.getCurrentSession();
         session.getTransaction().begin();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -35,8 +37,8 @@ public abstract class AbstractDAO<T>{
         return elements;
     }
 
-    T getSingleByOneEqualCondition(SessionFactory factory, String key, String value) {
-        Session session = factory.getCurrentSession();
+    T getSingleByOneEqualCondition(String key, String value) {
+        Session session = this.factory.getCurrentSession();
         session.getTransaction().begin();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -54,8 +56,8 @@ public abstract class AbstractDAO<T>{
         return element;
     }
 
-    protected List<T> getListByOneEqualCondition(SessionFactory factory, String key, String value){
-        Session session = factory.getCurrentSession();
+    protected List<T> getListByOneEqualCondition(String key, String value) {
+        Session session = this.factory.getCurrentSession();
         session.getTransaction().begin();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -73,8 +75,8 @@ public abstract class AbstractDAO<T>{
         return elements;
     }
 
-    public boolean insert(SessionFactory factory, T element){
-        Session session = factory.getCurrentSession();
+    public boolean insert(T element) {
+        Session session = this.factory.getCurrentSession();
         session.getTransaction().begin();
         try {
             session.save(element);
@@ -90,8 +92,8 @@ public abstract class AbstractDAO<T>{
         }
     }
 
-    public boolean update(SessionFactory factory, T element){
-        Session session = factory.getCurrentSession();
+    public boolean update(T element) {
+        Session session = this.factory.getCurrentSession();
         session.getTransaction().begin();
         try {
             session.update(element);
@@ -107,8 +109,8 @@ public abstract class AbstractDAO<T>{
         }
     }
 
-    public boolean delete(SessionFactory factory, T element){
-        Session session = factory.getCurrentSession();
+    public boolean delete(T element) {
+        Session session = this.factory.getCurrentSession();
         session.getTransaction().begin();
         try {
             session.delete(element);

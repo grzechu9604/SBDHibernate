@@ -43,8 +43,8 @@ public class Dzial {
     }
 
     public Pracownik getSzef(SessionFactory factory){
-        PracownikDAO pracownikDAO = new PracownikDAO();
-        return pracownikDAO.getPracownikById(factory, this.idSzefa);
+        PracownikDAO pracownikDAO = new PracownikDAO(factory);
+        return pracownikDAO.getPracownikById(this.idSzefa);
     }
 
 }
