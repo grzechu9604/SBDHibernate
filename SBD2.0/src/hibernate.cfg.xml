@@ -44,8 +44,7 @@
         <mapping class="Model.Firma" />
         <mapping class="Model.Kategoria" />
         <mapping class="Model.Zlecenie" />
-
-
+        <mapping class="Model.ZlecenieDzialConnector"/>
 
     </session-factory>
 

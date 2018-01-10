@@ -87,6 +87,12 @@ public class Main extends Application {
                 System.out.println(z.getDataWplywu());
             }
 
+            ZlecenieDzialConnectorDAO zlecenieDzialConnectorDAO = new ZlecenieDzialConnectorDAO(factory);
+            List<ZlecenieDzialConnector> connectors = zlecenieDzialConnectorDAO.findAll();
+            for (ZlecenieDzialConnector c : connectors) {
+                System.out.println(c.getIdZlecenia());
+            }
+
         }catch (Exception e){
             e.printStackTrace();
         }
