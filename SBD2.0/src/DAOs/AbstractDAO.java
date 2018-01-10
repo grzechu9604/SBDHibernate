@@ -15,14 +15,16 @@ public abstract class AbstractDAO<T>{
         this.entityBean = bean.getClass();
     }
 
-    private Class entityBean;
+    private final Class entityBean;
 
     public List<T> findAll(SessionFactory factory){
         Session session = factory.getCurrentSession();
         session.getTransaction().begin();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
+        @SuppressWarnings("unchecked")
         CriteriaQuery<T> query = builder.createQuery(entityBean);
+        @SuppressWarnings("unchecked")
         Root<T> root = query.from(entityBean);
         query.select(root);
         Query<T> q=session.createQuery(query);
@@ -33,29 +35,14 @@ public abstract class AbstractDAO<T>{
         return elements;
     }
 
-    protected T getSingle(SessionFactory factory, Long id){
+    T getSingleByOneEqualCondition(SessionFactory factory, String key, String value) {
         Session session = factory.getCurrentSession();
         session.getTransaction().begin();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
+        @SuppressWarnings("unchecked")
         CriteriaQuery<T> query = builder.createQuery(entityBean);
-        Root<T> root = query.from(entityBean);
-
-        query.select(root).where(builder.equal(root.get("id"), id));
-        Query<T> q=session.createQuery(query);
-
-        T element = q.getSingleResult();
-        session.getTransaction().commit();
-
-        return element;
-    }
-
-    protected T getSingleByOneEqualCondition(SessionFactory factory, String key, String value){
-        Session session = factory.getCurrentSession();
-        session.getTransaction().begin();
-
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<T> query = builder.createQuery(entityBean);
+        @SuppressWarnings("unchecked")
         Root<T> root = query.from(entityBean);
 
         query.select(root).where(builder.equal(root.get(key), value));
@@ -72,7 +59,9 @@ public abstract class AbstractDAO<T>{
         session.getTransaction().begin();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
+        @SuppressWarnings("unchecked")
         CriteriaQuery<T> query = builder.createQuery(entityBean);
+        @SuppressWarnings("unchecked")
         Root<T> root = query.from(entityBean);
 
         query.select(root).where(builder.equal(root.get(key), value));
