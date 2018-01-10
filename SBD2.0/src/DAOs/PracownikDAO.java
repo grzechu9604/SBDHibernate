@@ -23,10 +23,6 @@ public class PracownikDAO extends AbstractDAO<Pracownik> {
         super(new Pracownik());
     }
 
-    //public List<Pracownik> findAll(SessionFactory factory){
-      //  return this.getResultList(factory, getAllHql);
-    //}
-
     public Pracownik getPracownikById(SessionFactory factory, Long id){
         Session session = factory.getCurrentSession();
         session.getTransaction().begin();
