@@ -1,8 +1,10 @@
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.GridPane?>
-
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <GridPane fx:controller="sample.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" stylesheets="/Styles/Styles.css">
+    <Button text="Dodaj klienta" styleClass="Button"/>
+    <Button text="Lista klientów" styleClass="Button"/>
+    <Button text="Lista napraw" styleClass="Button"/>
+    <Button text="Lista pojazdów" styleClass="Button"/>
+    <Button text="Zarządzaj warsztatem" styleClass="Button"/>
 </GridPane>

@@ -1,5 +1,7 @@
 package Model;
 
+import javafx.beans.property.SimpleDoubleProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,6 +11,10 @@ import javax.persistence.Table;
 public class Klient extends Osoba {
     @Column(name = "RABAT")
     private Double rabat;
+
+    public SimpleDoubleProperty getRabatProperty() {
+        return new SimpleDoubleProperty(this.rabat);
+    }
 
     public Double getRabat() {
         return rabat;

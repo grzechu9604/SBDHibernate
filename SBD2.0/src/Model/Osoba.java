@@ -1,5 +1,7 @@
 package Model;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -48,5 +50,13 @@ public class Osoba {
 
     public void setNr_telefonu(String nr_telefonu) {
         this.nr_telefonu = nr_telefonu;
+    }
+
+    public SimpleStringProperty getImieProperty() {
+        return new SimpleStringProperty(this.imie);
+    }
+
+    public SimpleStringProperty getNazwiskoProperty() {
+        return new SimpleStringProperty(this.nazwisko);
     }
 }
