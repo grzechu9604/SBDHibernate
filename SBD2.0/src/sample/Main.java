@@ -1,36 +1,40 @@
 package sample;
 
-import DAOs.KlientDAO;
 import GUI.KlientController;
+import GUI.KlientEditDialogController;
 import Model.Klient;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.hibernate.SessionFactory;
 
 import java.io.IOException;
-import java.util.List;
 
 public class Main extends Application {
 
-    private ObservableList<Klient> klientObservableList = FXCollections.observableArrayList();
     private static SessionFactory factory = HibernateUtils.getSessionFactory();
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private DataBaseConnector dataBaseConnector;
+
+    public DataBaseConnector getDataBaseConnector() {
+        return dataBaseConnector;
+    }
 
     @Override
     public void start(Stage primaryStage) {
+        this.dataBaseConnector = new DataBaseConnector(factory);
+
         this.primaryStage = primaryStage;
         this.getPrimaryStage().setTitle("AddressApp");
 
         initRootLayout();
 
-        showPersonOverview();
+        showKlientOverview();
     }
 
     private void initRootLayout() {
@@ -49,17 +53,14 @@ public class Main extends Application {
         }
     }
 
-    private void showPersonOverview() {
+    private void showKlientOverview() {
         try {
-            // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/GUI/Klient.fxml"));
-            AnchorPane personOverview = loader.load();
+            AnchorPane KlientOverview = loader.load();
 
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(personOverview);
+            rootLayout.setCenter(KlientOverview);
 
-            // Give the controller access to the main app.
             KlientController controller = loader.getController();
             controller.setApp(this);
 
@@ -68,16 +69,35 @@ public class Main extends Application {
         }
     }
 
-    public ObservableList<Klient> getKlientsList() {
-        klientObservableList.clear();
+    public boolean showKlientEditDialog(Klient klient) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/KlientEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
 
-        KlientDAO klientDAO = new KlientDAO(factory);
-        List<Klient> klientList = klientDAO.findAll();
-        klientObservableList.addAll(klientList);
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Klient");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
 
-        return klientObservableList;
+            // Set the person into the controller.
+            KlientEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setKlient(klient);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOKClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-
 
     public static void main(String[] args) {
         /*
@@ -158,7 +178,15 @@ public class Main extends Application {
             factory.close();
         }
         */
-        launch(args);
+
+
+        try {
+            launch(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            factory.close();
+        }
     }
 
     public Stage getPrimaryStage() {

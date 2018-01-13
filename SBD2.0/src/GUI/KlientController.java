@@ -26,7 +26,7 @@ public class KlientController {
 
     public void setApp(Main app) {
         this.mainApp = app;
-        this.KlientsTab.setItems(this.mainApp.getKlientsList());
+        this.refreshList();
         initialize();
 
         clearDataAllLabels();
@@ -44,6 +44,35 @@ public class KlientController {
 
     @FXML
     private void handleDeleteKlient() {
+        if (isValidSelection()) {
+            this.mainApp.getDataBaseConnector().DeleteKlient(KlientsTab.getSelectionModel().getSelectedItem());
+            this.refreshList();
+        }
+    }
+
+    @FXML
+    private void handleEditKlient() {
+        if (isValidSelection()) {
+            Klient k = KlientsTab.getSelectionModel().getSelectedItem();
+            if (k != null) {
+                if (mainApp.showKlientEditDialog(k)) {
+                    showKlientData(k);
+                    this.mainApp.getDataBaseConnector().UpdateKlient(k);
+                }
+            }
+            this.refreshList();
+        }
+    }
+
+    @FXML
+    private void handleNewKlient() {
+        Klient k = new Klient();
+        if (mainApp.showKlientEditDialog(k))
+            mainApp.getDataBaseConnector().AddKlient(k);
+        this.refreshList();
+    }
+
+    private boolean isValidSelection() {
         int selectedIndex = KlientsTab.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex == -1 || selectedIndex >= KlientsTab.getItems().size()) {
@@ -54,14 +83,14 @@ public class KlientController {
             alert.setContentText("Proszę wybrać klienta z listy.");
 
             alert.showAndWait();
-        } else {
-            //TODO odwolanie do DAO i usunięcie klienta o ile to możliwe
-            KlientsTab.getItems().remove(selectedIndex);
+            return false;
         }
+        return true;
+
     }
 
     private void showKlientData(Klient k) {
-        if (k != null) {
+        if (k != null && k.getNazwisko() != null) {
             this.ImieDataLabel.setText(k.getImie());
             this.NazwiskoDataLabel.setText(k.getNazwisko());
             this.NrTelefonuDataLabel.setText(k.getNr_telefonu());
@@ -75,5 +104,9 @@ public class KlientController {
         this.NazwiskoDataLabel.setText("");
         this.NrTelefonuDataLabel.setText("");
         this.RabatDataLabel.setText("");
+    }
+
+    private void refreshList() {
+        this.KlientsTab.setItems(this.mainApp.getDataBaseConnector().GetAllKlient());
     }
 }
