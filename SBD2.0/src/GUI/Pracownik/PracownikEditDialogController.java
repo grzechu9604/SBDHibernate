@@ -103,6 +103,5 @@ public class PracownikEditDialogController {
             return false;
         }
         return true;
-
     }
 }

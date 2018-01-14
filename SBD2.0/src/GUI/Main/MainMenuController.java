@@ -49,4 +49,9 @@ public class MainMenuController {
     private void EtatsButtonClick() {
         this.mainApp.showEtatOverview();
     }
+
+    @FXML
+    private void DzialsButtonClick() {
+        this.mainApp.showDzialOverview();
+    }
 }

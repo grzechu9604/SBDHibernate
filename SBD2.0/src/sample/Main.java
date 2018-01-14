@@ -1,5 +1,7 @@
 package sample;
 
+import GUI.Dzial.DzialController;
+import GUI.Dzial.DzialEditDialogController;
 import GUI.Etat.EtatController;
 import GUI.Etat.EtatEditDialogController;
 import GUI.Firma.FirmaController;
@@ -9,10 +11,7 @@ import GUI.Klient.KlientEditDialogController;
 import GUI.Main.MainMenuController;
 import GUI.Pracownik.PracownikController;
 import GUI.Pracownik.PracownikEditDialogController;
-import Model.Etat;
-import Model.Firma;
-import Model.Klient;
-import Model.Pracownik;
+import Model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -143,6 +142,22 @@ public class Main extends Application {
         }
     }
 
+    public void showDzialOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Dzial/Dzial.fxml"));
+            AnchorPane dzialOverview = loader.load();
+
+            rootLayout.setCenter(dzialOverview);
+
+            DzialController controller = loader.getController();
+            controller.setApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean showKlientEditDialog(Klient klient) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -253,6 +268,38 @@ public class Main extends Application {
             EtatEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setEtat(etat);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOKClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showDzialEditDialog(Dzial dzial) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Dzial/DzialEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Dział");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            DzialEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMain(this);
+            controller.setDzial(dzial);
+
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

@@ -59,4 +59,8 @@ public class Osoba {
     public SimpleStringProperty getNazwiskoProperty() {
         return new SimpleStringProperty(this.nazwisko);
     }
+
+    public String getImieINazwisko() {
+        return imie + " " + nazwisko;
+    }
 }

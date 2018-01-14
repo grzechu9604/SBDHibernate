@@ -30,7 +30,8 @@
                         fx:id="CategoriesButton"/>
                 <Button mnemonicParsing="false" text="Części" GridPane.columnIndex="2" GridPane.rowIndex="1"
                         fx:id="PartsButton"/>
-                <Button mnemonicParsing="false" text="Działy" GridPane.rowIndex="2" fx:id="DepartmentsButton"/>
+                <Button mnemonicParsing="false" text="Działy" GridPane.rowIndex="2" fx:id="DepartmentsButton"
+                        onMouseClicked="#DzialsButtonClick"/>
                 <Button mnemonicParsing="false" text="Etaty" GridPane.columnIndex="1" GridPane.rowIndex="2"
                         fx:id="TimeButton" onMouseClicked="#EtatsButtonClick"/>
                 <Button mnemonicParsing="false" text="Pojazdy" GridPane.columnIndex="2" GridPane.rowIndex="2"
