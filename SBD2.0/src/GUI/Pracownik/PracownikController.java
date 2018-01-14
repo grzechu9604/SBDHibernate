@@ -1,5 +1,6 @@
 package GUI.Pracownik;
 
+import GUI.AlertHandler;
 import Model.Pracownik;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -44,7 +45,8 @@ public class PracownikController {
             try {
                 mainApp.getDataBaseConnector().getPracownikDAO().insert(p);
             } catch (DatabaseException e) {
-                setAlert(e.getMessage());
+                AlertHandler ah = new AlertHandler();
+                ah.setAlert(e.getMessage(), this.mainApp);
             }
         }
         this.refreshList();
@@ -59,7 +61,8 @@ public class PracownikController {
                     try {
                         this.mainApp.getDataBaseConnector().getPracownikDAO().update(p);
                     } catch (DatabaseException e) {
-                        setAlert(e.getMessage());
+                        AlertHandler ah = new AlertHandler();
+                        ah.setAlert(e.getMessage(), this.mainApp);
                     }
                 }
             }
@@ -72,7 +75,8 @@ public class PracownikController {
             try {
                 this.mainApp.getDataBaseConnector().getPracownikDAO().delete(PracownikTab.getSelectionModel().getSelectedItem());
             } catch (DatabaseException e) {
-                this.setAlert(e.getMessage());
+                AlertHandler ah = new AlertHandler();
+                ah.setAlert(e.getMessage(), this.mainApp);
             }
             this.refreshList();
         }
@@ -87,7 +91,13 @@ public class PracownikController {
     }
 
     private void refreshList() {
-        this.PracownikTab.setItems(this.mainApp.getDataBaseConnector().GetAllPracownik());
+        try {
+            this.PracownikTab.setItems(this.mainApp.getDataBaseConnector().GetAllPracownik());
+        } catch (DatabaseException e) {
+            AlertHandler ah = new AlertHandler();
+            ah.setAlert(e.getMessage(), this.mainApp);
+            this.clearDataAllLabels();
+        }
     }
 
     private boolean isValidSelection() {
@@ -106,25 +116,21 @@ public class PracownikController {
         return true;
     }
 
-    private void setAlert(String msg) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.initOwner(mainApp.getPrimaryStage());
-        alert.setTitle("Błąd");
-        alert.setHeaderText("Błąd");
-        alert.setContentText(msg);
-
-        alert.showAndWait();
-    }
-
     private void showPracownikData(Pracownik p) {
-        if (p != null && p.getNazwisko() != null) {
-            this.ImieDataLabel.setText(p.getImie());
-            this.NazwiskoDataLabel.setText(p.getNazwisko());
-            this.NrTelefonuDataLabel.setText(p.getNr_telefonu());
-            this.EtatLabel.setText(p.getNazwa_etatu());
-            this.DzialDataLabel.setText(this.mainApp.getDataBaseConnector().GetDzialById(p.getNr_dzialu()).getNazwa());
-        } else
+        try {
+            if (p != null && p.getNazwisko() != null) {
+                this.ImieDataLabel.setText(p.getImie());
+                this.NazwiskoDataLabel.setText(p.getNazwisko());
+                this.NrTelefonuDataLabel.setText(p.getNr_telefonu());
+                this.EtatLabel.setText(p.getNazwa_etatu());
+                this.DzialDataLabel.setText(this.mainApp.getDataBaseConnector().GetDzialById(p.getNr_dzialu()).getNazwa());
+            } else
+                this.clearDataAllLabels();
+        } catch (DatabaseException e) {
+            AlertHandler ah = new AlertHandler();
+            ah.setAlert(e.getMessage(), this.mainApp);
             this.clearDataAllLabels();
+        }
     }
 
 }

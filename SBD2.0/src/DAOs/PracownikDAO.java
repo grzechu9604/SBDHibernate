@@ -2,6 +2,7 @@ package DAOs;
 
 import Model.Pracownik;
 import org.hibernate.SessionFactory;
+import sample.DatabaseException;
 
 public class PracownikDAO extends AbstractDAO<Pracownik> {
 
@@ -9,7 +10,7 @@ public class PracownikDAO extends AbstractDAO<Pracownik> {
         super(factory, new Pracownik());
     }
 
-    public Pracownik getPracownikById(Long id) {
+    public Pracownik getPracownikById(Long id) throws DatabaseException {
         return this.getSingleByOneEqualCondition("id", id.toString());
     }
 }

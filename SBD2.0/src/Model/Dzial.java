@@ -3,6 +3,7 @@ package Model;
 import DAOs.PracownikDAO;
 import javafx.beans.property.SimpleStringProperty;
 import org.hibernate.SessionFactory;
+import sample.DatabaseException;
 
 import javax.persistence.*;
 
@@ -47,7 +48,7 @@ public class Dzial {
         return new SimpleStringProperty(this.nazwa);
     }
 
-    public Pracownik getSzef(SessionFactory factory){
+    public Pracownik getSzef(SessionFactory factory) throws DatabaseException {
         PracownikDAO pracownikDAO = new PracownikDAO(factory);
         return pracownikDAO.getPracownikById(this.idSzefa);
     }

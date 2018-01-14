@@ -1,5 +1,6 @@
 package GUI.Klient;
 
+import GUI.AlertHandler;
 import Model.Klient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -49,20 +50,11 @@ public class KlientController {
             try {
                 this.mainApp.getDataBaseConnector().getKlientDAO().delete(KlientsTab.getSelectionModel().getSelectedItem());
             } catch (DatabaseException e) {
-                setAlert(e.getMessage());
+                AlertHandler ah = new AlertHandler();
+                ah.setAlert(e.getMessage(), this.mainApp);
             }
             this.refreshList();
         }
-    }
-
-    private void setAlert(String msg) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.initOwner(mainApp.getPrimaryStage());
-        alert.setTitle("Błąd");
-        alert.setHeaderText("Błąd");
-        alert.setContentText(msg);
-
-        alert.showAndWait();
     }
 
     @FXML
@@ -75,7 +67,8 @@ public class KlientController {
                     try {
                         this.mainApp.getDataBaseConnector().getKlientDAO().update(k);
                     } catch (DatabaseException e) {
-                        setAlert(e.getMessage());
+                        AlertHandler ah = new AlertHandler();
+                        ah.setAlert(e.getMessage(), this.mainApp);
                     }
                 }
             }
@@ -90,7 +83,8 @@ public class KlientController {
             try {
                 mainApp.getDataBaseConnector().getKlientDAO().insert(k);
             } catch (DatabaseException e) {
-                setAlert(e.getMessage());
+                AlertHandler ah = new AlertHandler();
+                ah.setAlert(e.getMessage(), this.mainApp);
             }
         }
         this.refreshList();
@@ -130,6 +124,12 @@ public class KlientController {
     }
 
     private void refreshList() {
-        this.KlientsTab.setItems(this.mainApp.getDataBaseConnector().GetAllKlient());
+        try {
+            this.KlientsTab.setItems(this.mainApp.getDataBaseConnector().GetAllKlient());
+        } catch (DatabaseException e) {
+            AlertHandler ah = new AlertHandler();
+            ah.setAlert(e.getMessage(), this.mainApp);
+            this.clearDataAllLabels();
+        }
     }
 }

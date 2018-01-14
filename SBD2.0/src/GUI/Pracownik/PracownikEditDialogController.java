@@ -1,5 +1,6 @@
 package GUI.Pracownik;
 
+import GUI.AlertHandler;
 import Model.Dzial;
 import Model.Etat;
 import Model.Pracownik;
@@ -9,6 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import sample.DatabaseException;
 import sample.Main;
 
 public class PracownikEditDialogController {
@@ -35,20 +37,30 @@ public class PracownikEditDialogController {
     public void setPracownik(Pracownik pracownik) {
         this.pracownik = pracownik;
         if (this.pracownik != null && this.pracownik.getId() != null) {
-            this.ImieTexfField.setText(this.pracownik.getImie());
-            this.NazwiskoTexfField.setText(this.pracownik.getNazwisko());
-            this.NrTelefonuTexfField.setText(this.pracownik.getNr_telefonu());
-            this.DzialComboBox.setValue(this.main.getDataBaseConnector().GetDzialById(this.pracownik.getNr_dzialu()).getNazwa());
-            this.EtatComboBox.setValue(this.pracownik.getNazwa_etatu());
+            try {
+                this.ImieTexfField.setText(this.pracownik.getImie());
+                this.NazwiskoTexfField.setText(this.pracownik.getNazwisko());
+                this.NrTelefonuTexfField.setText(this.pracownik.getNr_telefonu());
+                this.DzialComboBox.setValue(this.main.getDataBaseConnector().GetDzialById(this.pracownik.getNr_dzialu()).getNazwa());
+                this.EtatComboBox.setValue(this.pracownik.getNazwa_etatu());
+            } catch (DatabaseException e) {
+                AlertHandler ah = new AlertHandler();
+                ah.setAlert(e.getMessage(), this.main);
+            }
         }
     }
 
     public void setMain(Main main) {
         this.main = main;
-        this.etatObservableList = this.main.getDataBaseConnector().GetAllEtat();
-        this.dzialObservableList = this.main.getDataBaseConnector().GetAllDzial();
-        this.etatObservableList.forEach(e -> EtatComboBox.getItems().add(e.getNazwa()));
-        this.dzialObservableList.forEach(d -> DzialComboBox.getItems().add(d.getNazwa()));
+        try {
+            this.etatObservableList = this.main.getDataBaseConnector().GetAllEtat();
+            this.dzialObservableList = this.main.getDataBaseConnector().GetAllDzial();
+            this.etatObservableList.forEach(e -> EtatComboBox.getItems().add(e.getNazwa()));
+            this.dzialObservableList.forEach(d -> DzialComboBox.getItems().add(d.getNazwa()));
+        } catch (DatabaseException e) {
+            AlertHandler ah = new AlertHandler();
+            ah.setAlert(e.getMessage(), this.main);
+        }
     }
 
     public void buttonAnulujClicked(MouseEvent mouseEvent) {

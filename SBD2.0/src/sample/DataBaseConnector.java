@@ -37,7 +37,7 @@ public class DataBaseConnector {
         this.zlecenieDAO = new ZlecenieDAO(this.factory);
     }
 
-    public ObservableList<Klient> GetAllKlient() {
+    public ObservableList<Klient> GetAllKlient() throws DatabaseException {
         ObservableList<Klient> klientObservableList = FXCollections.observableArrayList();
 
         KlientDAO klientDAO = new KlientDAO(getFactory());
@@ -47,7 +47,7 @@ public class DataBaseConnector {
         return klientObservableList;
     }
 
-    public ObservableList<Pracownik> GetAllPracownik() {
+    public ObservableList<Pracownik> GetAllPracownik() throws DatabaseException {
         ObservableList<Pracownik> pracownikObservableList = FXCollections.observableArrayList();
 
         PracownikDAO pracownikDAO = new PracownikDAO(getFactory());
@@ -57,12 +57,12 @@ public class DataBaseConnector {
         return pracownikObservableList;
     }
 
-    public Dzial GetDzialById(Long id) {
+    public Dzial GetDzialById(Long id) throws DatabaseException {
         DzialDAO dzialDAO = new DzialDAO(getFactory());
         return dzialDAO.getDzialById(id);
     }
 
-    public ObservableList<Dzial> GetAllDzial() {
+    public ObservableList<Dzial> GetAllDzial() throws DatabaseException {
         ObservableList<Dzial> dzialObservableList = FXCollections.observableArrayList();
 
         DzialDAO dzialDAO = new DzialDAO(getFactory());
@@ -72,7 +72,7 @@ public class DataBaseConnector {
         return dzialObservableList;
     }
 
-    public ObservableList<Etat> GetAllEtat() {
+    public ObservableList<Etat> GetAllEtat() throws DatabaseException {
         ObservableList<Etat> etatObservableList = FXCollections.observableArrayList();
 
         EtatDAO etatDAO = new EtatDAO(getFactory());
