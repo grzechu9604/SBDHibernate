@@ -1,6 +1,7 @@
 package Model;
 
 import DAOs.PracownikDAO;
+import javafx.beans.property.SimpleStringProperty;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.*;
@@ -40,6 +41,10 @@ public class Dzial {
 
     public void setIdSzefa(Long idSzefa) {
         this.idSzefa = idSzefa;
+    }
+
+    public SimpleStringProperty getNazwaProperty() {
+        return new SimpleStringProperty(this.nazwa);
     }
 
     public Pracownik getSzef(SessionFactory factory){

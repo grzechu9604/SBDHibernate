@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.121"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.KlientEditDialogController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Klient.KlientEditDialogController">
     <children>
         <GridPane layoutX="26.0" layoutY="22.0" prefHeight="214.0" prefWidth="482.0">
             <columnConstraints>

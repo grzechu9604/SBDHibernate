@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Klient;
 
 import Model.Klient;
 import javafx.fxml.FXML;

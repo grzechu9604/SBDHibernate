@@ -8,7 +8,7 @@ public class DzialDAO extends AbstractDAO<Dzial> {
         super(factory, new Dzial());
     }
 
-    public Dzial getDzialById(SessionFactory factory, Long id){
-        return new Dzial();
+    public Dzial getDzialById(Long id) {
+        return this.getSingleByOneEqualCondition("id", id.toString());
     }
 }

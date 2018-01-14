@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Klient;
 
 import Model.Klient;
 import javafx.fxml.FXML;
@@ -45,7 +45,7 @@ public class KlientController {
     @FXML
     private void handleDeleteKlient() {
         if (isValidSelection()) {
-            this.mainApp.getDataBaseConnector().DeleteKlient(KlientsTab.getSelectionModel().getSelectedItem());
+            this.mainApp.getDataBaseConnector().getKlientDAO().delete(KlientsTab.getSelectionModel().getSelectedItem());
             this.refreshList();
         }
     }
@@ -57,7 +57,7 @@ public class KlientController {
             if (k != null) {
                 if (mainApp.showKlientEditDialog(k)) {
                     showKlientData(k);
-                    this.mainApp.getDataBaseConnector().UpdateKlient(k);
+                    this.mainApp.getDataBaseConnector().getKlientDAO().update(k);
                 }
             }
             this.refreshList();
@@ -68,7 +68,7 @@ public class KlientController {
     private void handleNewKlient() {
         Klient k = new Klient();
         if (mainApp.showKlientEditDialog(k))
-            mainApp.getDataBaseConnector().AddKlient(k);
+            mainApp.getDataBaseConnector().getKlientDAO().insert(k);
         this.refreshList();
     }
 
@@ -86,7 +86,6 @@ public class KlientController {
             return false;
         }
         return true;
-
     }
 
     private void showKlientData(Klient k) {

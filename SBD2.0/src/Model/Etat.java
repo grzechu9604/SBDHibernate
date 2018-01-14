@@ -1,6 +1,11 @@
 package Model;
 
-import javax.persistence.*;
+import javafx.beans.property.SimpleStringProperty;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "ETATY")
@@ -25,5 +30,9 @@ public class Etat {
 
     public void setStawkaGodzinowa(Double stawkaGodzinowa) {
         this.stawkaGodzinowa = stawkaGodzinowa;
+    }
+
+    public SimpleStringProperty getNazwaProperty() {
+        return new SimpleStringProperty(this.nazwa);
     }
 }

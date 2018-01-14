@@ -1,8 +1,12 @@
 package sample;
 
-import GUI.KlientController;
-import GUI.KlientEditDialogController;
+import GUI.Klient.KlientController;
+import GUI.Klient.KlientEditDialogController;
+import GUI.Main.MainMenuController;
+import GUI.Pracownik.PracownikController;
+import GUI.Pracownik.PracownikEditDialogController;
 import Model.Klient;
+import Model.Pracownik;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,7 +38,7 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showKlientOverview();
+        initMainMenu();
     }
 
     private void initRootLayout() {
@@ -53,10 +57,26 @@ public class Main extends Application {
         }
     }
 
-    private void showKlientOverview() {
+    private void initMainMenu() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/GUI/Klient.fxml"));
+            loader.setLocation(Main.class.getResource("/GUI/Main/MainMenu.fxml"));
+            AnchorPane MainMenu = loader.load();
+
+            rootLayout.setCenter(MainMenu);
+
+            MainMenuController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showKlientOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Klient/Klient.fxml"));
             AnchorPane KlientOverview = loader.load();
 
             rootLayout.setCenter(KlientOverview);
@@ -69,11 +89,27 @@ public class Main extends Application {
         }
     }
 
+    public void showPracownikOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Pracownik/Pracownik.fxml"));
+            AnchorPane PracownikOverview = loader.load();
+
+            rootLayout.setCenter(PracownikOverview);
+
+            PracownikController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean showKlientEditDialog(Klient klient) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/GUI/KlientEditDialog.fxml"));
+            loader.setLocation(Main.class.getResource("/GUI/Klient/KlientEditDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -88,6 +124,37 @@ public class Main extends Application {
             KlientEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setKlient(klient);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOKClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showPracownikEditDialog(Pracownik pracownik) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Pracownik/PracownikEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("PRACOWNIK");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            PracownikEditDialogController controller = loader.getController();
+            controller.setMain(this);
+            controller.setDialogStage(dialogStage);
+            controller.setPracownik(pracownik);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

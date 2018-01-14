@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="480.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Main.MainMenuController">
+    <children>
+        <GridPane prefHeight="480.0" prefWidth="680.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Button mnemonicParsing="false" text="Klienci" fx:id="ClientsButton"
+                        onMouseClicked="#ClientsButtonClick"/>
+                <Button mnemonicParsing="false" text="Firmy" GridPane.columnIndex="1" fx:id="FirmsButton"/>
+                <Button mnemonicParsing="false" text="Pracownicy" GridPane.columnIndex="2" fx:id="WorkersButton"
+                        onMouseClicked="#WorkersButtonClick"/>
+                <Button mnemonicParsing="false" text="Naprawy" GridPane.rowIndex="1" fx:id="RepairsButton"/>
+                <Button mnemonicParsing="false" text="Kategorie" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                        fx:id="CategoriesButton"/>
+                <Button mnemonicParsing="false" text="Części" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                        fx:id="PartsButton"/>
+                <Button mnemonicParsing="false" text="Działy" GridPane.rowIndex="2" fx:id="DepartmentsButton"/>
+                <Button mnemonicParsing="false" text="Etaty" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                        fx:id="TimeButton"/>
+                <Button mnemonicParsing="false" text="Pojazdy" GridPane.columnIndex="2" GridPane.rowIndex="2"
+                        fx:id="VehiclesButton"/>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>
