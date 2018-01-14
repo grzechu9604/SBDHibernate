@@ -3,6 +3,7 @@ package GUI.Pracownik;
 import Model.Pracownik;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import sample.DatabaseException;
 import sample.Main;
 
 public class PracownikController {
@@ -39,8 +40,13 @@ public class PracownikController {
 
     public void handleNewPracownik(MouseEvent mouseEvent) {
         Pracownik p = new Pracownik();
-        if (mainApp.showPracownikEditDialog(p))
-            mainApp.getDataBaseConnector().getPracownikDAO().insert(p);
+        if (mainApp.showPracownikEditDialog(p)) {
+            try {
+                mainApp.getDataBaseConnector().getPracownikDAO().insert(p);
+            } catch (DatabaseException e) {
+                setAlert(e.getMessage());
+            }
+        }
         this.refreshList();
     }
 
@@ -50,7 +56,11 @@ public class PracownikController {
             if (p != null) {
                 if (mainApp.showPracownikEditDialog(p)) {
                     showPracownikData(p);
-                    this.mainApp.getDataBaseConnector().getPracownikDAO().update(p);
+                    try {
+                        this.mainApp.getDataBaseConnector().getPracownikDAO().update(p);
+                    } catch (DatabaseException e) {
+                        setAlert(e.getMessage());
+                    }
                 }
             }
             this.refreshList();
@@ -59,7 +69,11 @@ public class PracownikController {
 
     public void handleDeletePracownik(MouseEvent mouseEvent) {
         if (isValidSelection()) {
-            this.mainApp.getDataBaseConnector().getPracownikDAO().delete(PracownikTab.getSelectionModel().getSelectedItem());
+            try {
+                this.mainApp.getDataBaseConnector().getPracownikDAO().delete(PracownikTab.getSelectionModel().getSelectedItem());
+            } catch (DatabaseException e) {
+                this.setAlert(e.getMessage());
+            }
             this.refreshList();
         }
     }
@@ -90,6 +104,16 @@ public class PracownikController {
             return false;
         }
         return true;
+    }
+
+    private void setAlert(String msg) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.initOwner(mainApp.getPrimaryStage());
+        alert.setTitle("Błąd");
+        alert.setHeaderText("Błąd");
+        alert.setContentText(msg);
+
+        alert.showAndWait();
     }
 
     private void showPracownikData(Pracownik p) {

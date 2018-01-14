@@ -3,6 +3,7 @@ package DAOs;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import sample.DatabaseException;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -75,7 +76,7 @@ public abstract class AbstractDAO<T>{
         return elements;
     }
 
-    public boolean insert(T element) {
+    public boolean insert(T element) throws DatabaseException {
         Session session = this.factory.getCurrentSession();
         session.getTransaction().begin();
         try {
@@ -85,14 +86,13 @@ public abstract class AbstractDAO<T>{
         }
         catch (Exception e){
             session.getTransaction().rollback();
-            e.printStackTrace();
-            return false;
+            throw new DatabaseException("Nie udało się dodać obiektu do bazy danych.");
         } finally {
             session.close();
         }
     }
 
-    public boolean update(T element) {
+    public boolean update(T element) throws DatabaseException {
         Session session = this.factory.getCurrentSession();
         session.getTransaction().begin();
         try {
@@ -102,14 +102,13 @@ public abstract class AbstractDAO<T>{
         }
         catch (Exception e){
             session.getTransaction().rollback();
-            e.printStackTrace();
-            return false;
+            throw new DatabaseException("Nie udało się wykonać akcji edycji.");
         } finally {
             session.close();
         }
     }
 
-    public boolean delete(T element) {
+    public boolean delete(T element) throws DatabaseException {
         Session session = this.factory.getCurrentSession();
         session.getTransaction().begin();
         try {
@@ -119,8 +118,7 @@ public abstract class AbstractDAO<T>{
         }
         catch (Exception e){
             session.getTransaction().rollback();
-            e.printStackTrace();
-            return false;
+            throw new DatabaseException("Znaleziono powiązanie z obiektem, który próbujesz usunąć. Nie można wykonać akcji usunięcia");
         }
     }
 }

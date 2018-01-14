@@ -4,6 +4,7 @@ import Model.Klient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import sample.DatabaseException;
 import sample.Main;
 
 public class KlientController {
@@ -45,9 +46,23 @@ public class KlientController {
     @FXML
     private void handleDeleteKlient() {
         if (isValidSelection()) {
-            this.mainApp.getDataBaseConnector().getKlientDAO().delete(KlientsTab.getSelectionModel().getSelectedItem());
+            try {
+                this.mainApp.getDataBaseConnector().getKlientDAO().delete(KlientsTab.getSelectionModel().getSelectedItem());
+            } catch (DatabaseException e) {
+                setAlert(e.getMessage());
+            }
             this.refreshList();
         }
+    }
+
+    private void setAlert(String msg) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.initOwner(mainApp.getPrimaryStage());
+        alert.setTitle("Błąd");
+        alert.setHeaderText("Błąd");
+        alert.setContentText(msg);
+
+        alert.showAndWait();
     }
 
     @FXML
@@ -57,7 +72,11 @@ public class KlientController {
             if (k != null) {
                 if (mainApp.showKlientEditDialog(k)) {
                     showKlientData(k);
-                    this.mainApp.getDataBaseConnector().getKlientDAO().update(k);
+                    try {
+                        this.mainApp.getDataBaseConnector().getKlientDAO().update(k);
+                    } catch (DatabaseException e) {
+                        setAlert(e.getMessage());
+                    }
                 }
             }
             this.refreshList();
@@ -67,8 +86,13 @@ public class KlientController {
     @FXML
     private void handleNewKlient() {
         Klient k = new Klient();
-        if (mainApp.showKlientEditDialog(k))
-            mainApp.getDataBaseConnector().getKlientDAO().insert(k);
+        if (mainApp.showKlientEditDialog(k)) {
+            try {
+                mainApp.getDataBaseConnector().getKlientDAO().insert(k);
+            } catch (DatabaseException e) {
+                setAlert(e.getMessage());
+            }
+        }
         this.refreshList();
     }
 
