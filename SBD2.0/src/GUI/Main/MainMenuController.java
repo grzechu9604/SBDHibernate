@@ -44,4 +44,9 @@ public class MainMenuController {
     private void FirmsButtonClick() {
         this.mainApp.showFirmaOverview();
     }
+
+    @FXML
+    private void EtatsButtonClick() {
+        this.mainApp.showEtatOverview();
+    }
 }

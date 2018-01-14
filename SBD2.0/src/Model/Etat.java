@@ -35,4 +35,8 @@ public class Etat {
     public SimpleStringProperty getNazwaProperty() {
         return new SimpleStringProperty(this.nazwa);
     }
+
+    public SimpleStringProperty getStawkaProperty() {
+        return new SimpleStringProperty(this.stawkaGodzinowa.toString());
+    }
 }

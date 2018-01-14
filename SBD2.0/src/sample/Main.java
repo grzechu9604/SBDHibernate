@@ -1,5 +1,7 @@
 package sample;
 
+import GUI.Etat.EtatController;
+import GUI.Etat.EtatEditDialogController;
 import GUI.Firma.FirmaController;
 import GUI.Firma.FirmaEditDialogController;
 import GUI.Klient.KlientController;
@@ -7,6 +9,7 @@ import GUI.Klient.KlientEditDialogController;
 import GUI.Main.MainMenuController;
 import GUI.Pracownik.PracownikController;
 import GUI.Pracownik.PracownikEditDialogController;
+import Model.Etat;
 import Model.Firma;
 import Model.Klient;
 import Model.Pracownik;
@@ -124,6 +127,22 @@ public class Main extends Application {
         }
     }
 
+    public void showEtatOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Etat/Etat.fxml"));
+            AnchorPane etatOverview = loader.load();
+
+            rootLayout.setCenter(etatOverview);
+
+            EtatController controller = loader.getController();
+            controller.setApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean showKlientEditDialog(Klient klient) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -204,6 +223,36 @@ public class Main extends Application {
             controller.setMain(this);
             controller.setDialogStage(dialogStage);
             controller.setPracownik(pracownik);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOKClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showEtatEditDialog(Etat etat) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Etat/EtatEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Etat");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            EtatEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setEtat(etat);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
