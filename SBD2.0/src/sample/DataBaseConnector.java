@@ -1,15 +1,10 @@
 package sample;
 
 import DAOs.*;
-import Model.Dzial;
-import Model.Etat;
-import Model.Klient;
-import Model.Pracownik;
+import Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.SessionFactory;
-
-import java.util.List;
 
 public class DataBaseConnector {
 
@@ -24,7 +19,7 @@ public class DataBaseConnector {
     private final ZlecenieDAO zlecenieDAO;
     private final SessionFactory factory;
 
-    public DataBaseConnector(SessionFactory factory) {
+    DataBaseConnector(SessionFactory factory) {
         this.factory = factory;
         this.czescDAO = new CzescDAO(this.factory);
         this.dzialDAO = new DzialDAO(this.factory);
@@ -40,9 +35,7 @@ public class DataBaseConnector {
     public ObservableList<Klient> GetAllKlient() throws DatabaseException {
         ObservableList<Klient> klientObservableList = FXCollections.observableArrayList();
 
-        KlientDAO klientDAO = new KlientDAO(getFactory());
-        List<Klient> klientList = klientDAO.findAll();
-        klientObservableList.addAll(klientList);
+        klientObservableList.addAll(klientDAO.findAll());
 
         return klientObservableList;
     }
@@ -50,24 +43,27 @@ public class DataBaseConnector {
     public ObservableList<Pracownik> GetAllPracownik() throws DatabaseException {
         ObservableList<Pracownik> pracownikObservableList = FXCollections.observableArrayList();
 
-        PracownikDAO pracownikDAO = new PracownikDAO(getFactory());
-        List<Pracownik> pracownikList = pracownikDAO.findAll();
-        pracownikObservableList.addAll(pracownikList);
+        pracownikObservableList.addAll(pracownikDAO.findAll());
 
         return pracownikObservableList;
     }
 
+    public ObservableList<Firma> GetAllFirma() throws DatabaseException {
+        ObservableList<Firma> firmaObservableList = FXCollections.observableArrayList();
+
+        firmaObservableList.addAll(firmaDAO.findAll());
+
+        return firmaObservableList;
+    }
+
     public Dzial GetDzialById(Long id) throws DatabaseException {
-        DzialDAO dzialDAO = new DzialDAO(getFactory());
         return dzialDAO.getDzialById(id);
     }
 
     public ObservableList<Dzial> GetAllDzial() throws DatabaseException {
         ObservableList<Dzial> dzialObservableList = FXCollections.observableArrayList();
 
-        DzialDAO dzialDAO = new DzialDAO(getFactory());
-        List<Dzial> dzialList = dzialDAO.findAll();
-        dzialObservableList.addAll(dzialList);
+        dzialObservableList.addAll(dzialDAO.findAll());
 
         return dzialObservableList;
     }
@@ -75,9 +71,7 @@ public class DataBaseConnector {
     public ObservableList<Etat> GetAllEtat() throws DatabaseException {
         ObservableList<Etat> etatObservableList = FXCollections.observableArrayList();
 
-        EtatDAO etatDAO = new EtatDAO(getFactory());
-        List<Etat> etatList = etatDAO.findAll();
-        etatObservableList.addAll(etatList);
+        etatObservableList.addAll(etatDAO.findAll());
 
         return etatObservableList;
     }

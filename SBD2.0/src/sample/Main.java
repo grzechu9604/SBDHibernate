@@ -1,10 +1,13 @@
 package sample;
 
+import GUI.Firma.FirmaController;
+import GUI.Firma.FirmaEditDialogController;
 import GUI.Klient.KlientController;
 import GUI.Klient.KlientEditDialogController;
 import GUI.Main.MainMenuController;
 import GUI.Pracownik.PracownikController;
 import GUI.Pracownik.PracownikEditDialogController;
+import Model.Firma;
 import Model.Klient;
 import Model.Pracownik;
 import javafx.application.Application;
@@ -105,12 +108,28 @@ public class Main extends Application {
         }
     }
 
+    public void showFirmaOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Firma/Firma.fxml"));
+            AnchorPane firmaOverview = loader.load();
+
+            rootLayout.setCenter(firmaOverview);
+
+            FirmaController controller = loader.getController();
+            controller.setApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean showKlientEditDialog(Klient klient) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/GUI/Klient/KlientEditDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            AnchorPane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
@@ -135,12 +154,42 @@ public class Main extends Application {
         }
     }
 
+    public boolean showFirmaEditDialog(Firma firma) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Firma/FirmaEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Firma");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            FirmaEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setFirma(firma);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOKClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean showPracownikEditDialog(Pracownik pracownik) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/GUI/Pracownik/PracownikEditDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            AnchorPane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();

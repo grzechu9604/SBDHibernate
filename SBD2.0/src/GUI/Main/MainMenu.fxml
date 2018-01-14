@@ -21,7 +21,8 @@
             <children>
                 <Button mnemonicParsing="false" text="Klienci" fx:id="ClientsButton"
                         onMouseClicked="#ClientsButtonClick"/>
-                <Button mnemonicParsing="false" text="Firmy" GridPane.columnIndex="1" fx:id="FirmsButton"/>
+                <Button mnemonicParsing="false" text="Firmy" GridPane.columnIndex="1" fx:id="FirmsButton"
+                        onMouseClicked="#FirmsButtonClick"/>
                 <Button mnemonicParsing="false" text="Pracownicy" GridPane.columnIndex="2" fx:id="WorkersButton"
                         onMouseClicked="#WorkersButtonClick"/>
                 <Button mnemonicParsing="false" text="Naprawy" GridPane.rowIndex="1" fx:id="RepairsButton"/>

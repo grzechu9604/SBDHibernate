@@ -39,4 +39,9 @@ public class MainMenuController {
     private void WorkersButtonClick() {
         this.mainApp.showPracownikOverview();
     }
+
+    @FXML
+    private void FirmsButtonClick() {
+        this.mainApp.showFirmaOverview();
+    }
 }

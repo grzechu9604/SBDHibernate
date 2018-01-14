@@ -1,5 +1,7 @@
 package Model;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -38,5 +40,13 @@ public class Firma {
 
     public void setNazwa(String nazwa) {
         this.nazwa = nazwa;
+    }
+
+    public SimpleStringProperty getNazwaProperty() {
+        return new SimpleStringProperty(this.nazwa);
+    }
+
+    public SimpleStringProperty getAdresProperty() {
+        return new SimpleStringProperty(this.adres);
     }
 }
