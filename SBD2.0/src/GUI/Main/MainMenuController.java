@@ -54,4 +54,9 @@ public class MainMenuController {
     private void DzialsButtonClick() {
         this.mainApp.showDzialOverview();
     }
+
+    @FXML
+    private void KategoriasButtonClick() {
+        this.mainApp.showKategoriaOverview();
+    }
 }

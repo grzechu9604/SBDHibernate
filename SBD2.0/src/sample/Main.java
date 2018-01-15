@@ -6,6 +6,8 @@ import GUI.Etat.EtatController;
 import GUI.Etat.EtatEditDialogController;
 import GUI.Firma.FirmaController;
 import GUI.Firma.FirmaEditDialogController;
+import GUI.Kategoria.KategoriaController;
+import GUI.Kategoria.KategoriaEditDialogController;
 import GUI.Klient.KlientController;
 import GUI.Klient.KlientEditDialogController;
 import GUI.Main.MainMenuController;
@@ -151,6 +153,22 @@ public class Main extends Application {
             rootLayout.setCenter(dzialOverview);
 
             DzialController controller = loader.getController();
+            controller.setApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showKategoriaOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Kategoria/Kategoria.fxml"));
+            AnchorPane kategoriaOverview = loader.load();
+
+            rootLayout.setCenter(kategoriaOverview);
+
+            KategoriaController controller = loader.getController();
             controller.setApp(this);
 
         } catch (IOException e) {
@@ -310,6 +328,39 @@ public class Main extends Application {
             return false;
         }
     }
+
+    public boolean showKategoriaEditDialog(Kategoria kategoria) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Kategoria/KategoriaEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Kategoria");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            KategoriaEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMain(this);
+            controller.setKategoria(kategoria);
+
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOKClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     public static void main(String[] args) {
         /*

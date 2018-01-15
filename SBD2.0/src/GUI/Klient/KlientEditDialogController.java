@@ -35,7 +35,7 @@ public class KlientEditDialogController {
 
     public void setKlient(Klient k) {
         this.klient = k;
-        if (this.klient != null) {
+        if (this.klient != null && this.klient.getId() != null) {
             this.ImieTexfField.setText(this.klient.getImie());
             this.NazwiskoTexfField.setText(this.klient.getNazwisko());
             this.NrTelefonuTexfField.setText(this.klient.getNr_telefonu());

@@ -27,7 +27,7 @@
                         onMouseClicked="#WorkersButtonClick"/>
                 <Button mnemonicParsing="false" text="Naprawy" GridPane.rowIndex="1" fx:id="RepairsButton"/>
                 <Button mnemonicParsing="false" text="Kategorie" GridPane.columnIndex="1" GridPane.rowIndex="1"
-                        fx:id="CategoriesButton"/>
+                        fx:id="CategoriesButton" onMouseClicked="#KategoriasButtonClick"/>
                 <Button mnemonicParsing="false" text="Części" GridPane.columnIndex="2" GridPane.rowIndex="1"
                         fx:id="PartsButton"/>
                 <Button mnemonicParsing="false" text="Działy" GridPane.rowIndex="2" fx:id="DepartmentsButton"

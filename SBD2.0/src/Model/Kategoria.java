@@ -1,5 +1,7 @@
 package Model;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -28,5 +30,9 @@ public class Kategoria {
 
     public void setOpis(String opis) {
         this.opis = opis;
+    }
+
+    public SimpleStringProperty getNazwaProperty() {
+        return new SimpleStringProperty(this.nazwa);
     }
 }
