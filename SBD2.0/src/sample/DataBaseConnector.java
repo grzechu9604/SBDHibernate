@@ -92,6 +92,14 @@ public class DataBaseConnector {
         return czescObservableList;
     }
 
+    public ObservableList<Pojazd> GetAllPojazd() throws DatabaseException {
+        ObservableList<Pojazd> pojazdObservableList = FXCollections.observableArrayList();
+
+        pojazdObservableList.addAll(pojazdDAO.findAll());
+
+        return pojazdObservableList;
+    }
+
     public CzescDAO getCzescDAO() {
         return czescDAO;
     }

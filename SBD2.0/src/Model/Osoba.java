@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Osoba {
     @Id
     @SequenceGenerator(name = "OSOBY_SEQ", sequenceName = "OSOBY_SEQ")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OSOBY_SEQ")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "OSOBY_SEQ")
     @Column(name = "ID", nullable = false)
     private Long id;
     @Column(name = "IMIE", nullable = false)

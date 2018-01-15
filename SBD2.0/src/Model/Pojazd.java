@@ -1,5 +1,7 @@
 package Model;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,6 +10,8 @@ import javax.persistence.*;
 })
 public class Pojazd {
     @Id
+    @SequenceGenerator(name = "POJAZDY_SEQ", sequenceName = "POJAZDY_SEQ")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "POJAZDY_SEQ")
     @Column(name = "NR_POJAZDU", nullable = false)
     private Long nr_pojazdu;
 
@@ -20,12 +24,12 @@ public class Pojazd {
     @Column(name = "FIRMY_NIP")
     private String nip_firmy;
 
-    @Column(name = "NR_REJESTRACYJNY")
+    @Column(name = "NR_REJESTRACYJNY", nullable = false, unique = true)
     private String nr_rejestracyjny;
 
     public Pojazd(){}
 
-    public long getNr_pojazdu() {
+    public Long getNr_pojazdu() {
         return nr_pojazdu;
     }
 
@@ -41,7 +45,7 @@ public class Pojazd {
         this.marka = marka;
     }
 
-    public long getId_klienta() {
+    public Long getId_klienta() {
         return id_klienta;
     }
 
@@ -64,4 +68,13 @@ public class Pojazd {
     public void setNr_rejestracyjny(String nr_rejestracyjny) {
         this.nr_rejestracyjny = nr_rejestracyjny;
     }
+
+    public SimpleStringProperty getMarkaProperty() {
+        return new SimpleStringProperty(this.marka);
+    }
+
+    public SimpleStringProperty getNrRejestracyjnyProperty() {
+        return new SimpleStringProperty(this.nr_rejestracyjny);
+    }
+
 }

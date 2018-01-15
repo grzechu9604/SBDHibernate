@@ -64,4 +64,10 @@ public class MainMenuController {
     private void CzescsButtonClick() {
         this.mainApp.showCzescOverview();
     }
+
+    @FXML
+    private void PojazdsButtonClick() {
+        this.mainApp.showPojazdOverview();
+    }
+
 }

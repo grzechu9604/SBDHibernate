@@ -35,7 +35,7 @@
                 <Button mnemonicParsing="false" text="Etaty" GridPane.columnIndex="1" GridPane.rowIndex="2"
                         fx:id="TimeButton" onMouseClicked="#EtatsButtonClick"/>
                 <Button mnemonicParsing="false" text="Pojazdy" GridPane.columnIndex="2" GridPane.rowIndex="2"
-                        fx:id="VehiclesButton"/>
+                        fx:id="VehiclesButton" onMouseClicked="#PojazdsButtonClick"/>
             </children>
         </GridPane>
     </children>

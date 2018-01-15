@@ -13,6 +13,8 @@ import GUI.Kategoria.KategoriaEditDialogController;
 import GUI.Klient.KlientController;
 import GUI.Klient.KlientEditDialogController;
 import GUI.Main.MainMenuController;
+import GUI.Pojazd.PojazdController;
+import GUI.Pojazd.PojazdEditDialogController;
 import GUI.Pracownik.PracownikController;
 import GUI.Pracownik.PracownikEditDialogController;
 import Model.*;
@@ -187,6 +189,22 @@ public class Main extends Application {
             rootLayout.setCenter(czescOverview);
 
             CzescController controller = loader.getController();
+            controller.setApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showPojazdOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Pojazd/Pojazd.fxml"));
+            AnchorPane pojazdOverview = loader.load();
+
+            rootLayout.setCenter(pojazdOverview);
+
+            PojazdController controller = loader.getController();
             controller.setApp(this);
 
         } catch (IOException e) {
@@ -399,6 +417,38 @@ public class Main extends Application {
             controller.setDialogStage(dialogStage);
             controller.setMain(this);
             controller.setCzesc(czesc);
+
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOKClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showPojazdEditDialog(Pojazd pojazd) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Pojazd/PojazdEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Pojazd");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            PojazdEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMain(this);
+            controller.setPojazd(pojazd);
 
 
             // Show the dialog and wait until the user closes it
