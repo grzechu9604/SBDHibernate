@@ -117,4 +117,8 @@ public class EtatController {
                 (observable, oldValue, newValue) -> showEtatData(newValue)
         );
     }
+
+    public void handleBackToMainMenu(MouseEvent mouseEvent) {
+        this.mainApp.initMainMenu();
+    }
 }

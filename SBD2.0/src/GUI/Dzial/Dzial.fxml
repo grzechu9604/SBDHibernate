@@ -51,6 +51,8 @@
                                         onMouseClicked="#handleEditDzial"/>
                                 <Button mnemonicParsing="false"
                                         onMouseClicked="#handleDeleteDzial" text="Usuń"/>
+                                <Button mnemonicParsing="false"
+                                        onMouseClicked="#handleBackToMainMenu" text="Wróć"/>
                             </buttons>
                         </ButtonBar>
                     </children>

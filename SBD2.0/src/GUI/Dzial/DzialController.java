@@ -125,4 +125,8 @@ public class DzialController {
                 (observable, oldValue, newValue) -> showDzialData(newValue)
         );
     }
+
+    public void handleBackToMainMenu(MouseEvent mouseEvent) {
+        this.mainApp.initMainMenu();
+    }
 }

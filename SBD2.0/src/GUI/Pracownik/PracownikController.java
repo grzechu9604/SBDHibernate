@@ -133,4 +133,7 @@ public class PracownikController {
         }
     }
 
+    public void handleBackToMainMenu(MouseEvent mouseEvent) {
+        this.mainApp.initMainMenu();
+    }
 }

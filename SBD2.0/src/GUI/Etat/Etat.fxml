@@ -52,6 +52,8 @@
                                         onMouseClicked="#handleEditEtat"/>
                                 <Button mnemonicParsing="false"
                                         onMouseClicked="#handleDeleteEtat" text="Usuń"/>
+                                <Button mnemonicParsing="false"
+                                        onMouseClicked="#handleBackToMainMenu" text="Wróć"/>
                             </buttons>
                         </ButtonBar>
                     </children>

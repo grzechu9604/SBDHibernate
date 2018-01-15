@@ -132,4 +132,8 @@ public class FirmaController {
                 (observable, oldValue, newValue) -> showFirmaData(newValue)
         );
     }
+
+    public void handleBackToMainMenu(MouseEvent mouseEvent) {
+        this.mainApp.initMainMenu();
+    }
 }

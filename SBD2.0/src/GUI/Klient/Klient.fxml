@@ -58,6 +58,8 @@
                                         onMouseClicked="#handleEditKlient"/>
                                 <Button fx:id="DeleteKlientButton" mnemonicParsing="false"
                                         onMouseClicked="#handleDeleteKlient" text="Usuń"/>
+                                <Button mnemonicParsing="false"
+                                        onMouseClicked="#handleBackToMainMenu" text="Wróć"/>
                             </buttons>
                         </ButtonBar>
                     </children>

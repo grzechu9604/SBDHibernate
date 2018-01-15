@@ -62,7 +62,7 @@ public class Main extends Application {
         }
     }
 
-    private void initMainMenu() {
+    public void initMainMenu() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/GUI/Main/MainMenu.fxml"));

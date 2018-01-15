@@ -64,6 +64,8 @@
                                         onMouseClicked="#handleEditPracownik"/>
                                 <Button fx:id="DeleteKlientButton" mnemonicParsing="false"
                                         onMouseClicked="#handleDeletePracownik" text="Usuń"/>
+                                <Button mnemonicParsing="false"
+                                        onMouseClicked="#handleBackToMainMenu" text="Wróć"/>
                             </buttons>
                         </ButtonBar>
                     </children>
