@@ -59,4 +59,9 @@ public class MainMenuController {
     private void KategoriasButtonClick() {
         this.mainApp.showKategoriaOverview();
     }
+
+    @FXML
+    private void CzescsButtonClick() {
+        this.mainApp.showCzescOverview();
+    }
 }

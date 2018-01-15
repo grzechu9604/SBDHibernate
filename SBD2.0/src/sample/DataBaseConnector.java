@@ -84,6 +84,14 @@ public class DataBaseConnector {
         return kategoriaObservableList;
     }
 
+    public ObservableList<Czesc> GetAllCzesc() throws DatabaseException {
+        ObservableList<Czesc> czescObservableList = FXCollections.observableArrayList();
+
+        czescObservableList.addAll(czescDAO.findAll());
+
+        return czescObservableList;
+    }
+
     public CzescDAO getCzescDAO() {
         return czescDAO;
     }

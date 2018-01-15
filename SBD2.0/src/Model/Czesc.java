@@ -1,14 +1,16 @@
 package Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import DAOs.KategoriaDAO;
+import javafx.beans.property.SimpleStringProperty;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Czesci")
 public class Czesc {
     @Id
+    @SequenceGenerator(name = "CZESCI_SEQ", sequenceName = "CZESCI_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CZESCI_SEQ")
     @Column(name = "NR_CZESCI", nullable = false)
     private Long id;
     @Column(name = "CENA_ZAKUPU")
@@ -58,5 +60,13 @@ public class Czesc {
 
     public void setZlecenieNrNaprawy(String zlecenieNrNaprawy) {
         this.zlecenieNrNaprawy = zlecenieNrNaprawy;
+    }
+
+    public Kategoria getKategoria(KategoriaDAO kategoriaDAO) {
+        return kategoriaDAO.getKategoriaByNazwa(this.nazwaKategorii);
+    }
+
+    public SimpleStringProperty getCenaZakupuProperty() {
+        return new SimpleStringProperty(this.cenaZakupu.toString());
     }
 }
