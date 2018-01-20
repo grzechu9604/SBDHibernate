@@ -26,7 +26,6 @@ public class PojazdEditDialogController {
     private Main main;
     private Stage dialogStage;
     private boolean isOKClicked = false;
-    private boolean belongsToFirma;
     private ObservableList<Firma> firmaObservableList;
     private ObservableList<Klient> klientObservableList;
 

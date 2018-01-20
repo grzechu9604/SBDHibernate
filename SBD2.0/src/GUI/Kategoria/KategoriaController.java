@@ -123,5 +123,4 @@ public class KategoriaController {
     public void handleBackToMainMenu(MouseEvent mouseEvent) {
         this.mainApp.initMainMenu();
     }
-
 }

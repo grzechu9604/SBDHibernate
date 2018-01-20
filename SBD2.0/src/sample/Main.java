@@ -17,6 +17,8 @@ import GUI.Pojazd.PojazdController;
 import GUI.Pojazd.PojazdEditDialogController;
 import GUI.Pracownik.PracownikController;
 import GUI.Pracownik.PracownikEditDialogController;
+import GUI.Zlecenie.ZlecenieController;
+import GUI.Zlecenie.ZlecenieEditDialogController;
 import Model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -205,6 +207,22 @@ public class Main extends Application {
             rootLayout.setCenter(pojazdOverview);
 
             PojazdController controller = loader.getController();
+            controller.setApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showZlecenieOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Zlecenie/Zlecenie.fxml"));
+            AnchorPane zlecenieOverview = loader.load();
+
+            rootLayout.setCenter(zlecenieOverview);
+
+            ZlecenieController controller = loader.getController();
             controller.setApp(this);
 
         } catch (IOException e) {
@@ -461,6 +479,37 @@ public class Main extends Application {
         }
     }
 
+    public boolean showZlecenieEditDialog(Zlecenie zlecenie) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GUI/Zlecenie/ZlecenieEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Zlecenie");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            ZlecenieEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMain(this);
+            controller.setZlecenie(zlecenie);
+
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOKClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public static void main(String[] args) {
         /*

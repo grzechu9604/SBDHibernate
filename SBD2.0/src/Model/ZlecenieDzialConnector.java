@@ -19,6 +19,11 @@ public class ZlecenieDzialConnector implements Serializable {
     public ZlecenieDzialConnector() {
     }
 
+    public ZlecenieDzialConnector(Zlecenie z, Dzial d) {
+        this.idZlecenia = z.getId();
+        this.idDzialu = d.getId();
+    }
+
     @Override
     public int hashCode() {
         return 17 + this.idDzialu.intValue() * 31 + this.idZlecenia.intValue() * 31;

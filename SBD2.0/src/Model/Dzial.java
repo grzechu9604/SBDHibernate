@@ -55,4 +55,8 @@ public class Dzial {
         return pracownikDAO.getPracownikById(this.idSzefa);
     }
 
+    @Override
+    public String toString() {
+        return this.nazwa;
+    }
 }

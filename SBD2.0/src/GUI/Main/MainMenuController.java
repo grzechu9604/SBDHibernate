@@ -70,4 +70,9 @@ public class MainMenuController {
         this.mainApp.showPojazdOverview();
     }
 
+    @FXML
+    private void ZleceniesButtonClick() {
+        this.mainApp.showZlecenieOverview();
+    }
+
 }

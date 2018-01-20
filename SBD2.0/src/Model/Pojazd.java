@@ -77,4 +77,8 @@ public class Pojazd {
         return new SimpleStringProperty(this.nr_rejestracyjny);
     }
 
+    @Override
+    public String toString() {
+        return this.nr_rejestracyjny;
+    }
 }

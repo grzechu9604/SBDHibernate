@@ -69,4 +69,9 @@ public class Czesc {
     public SimpleStringProperty getCenaZakupuProperty() {
         return new SimpleStringProperty(this.cenaZakupu.toString());
     }
+
+    @Override
+    public String toString() {
+        return this.nazwaKategorii + " " + this.cenaSprzedazy;
+    }
 }

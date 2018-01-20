@@ -19,7 +19,7 @@ public class DataBaseConnector {
     private final ZlecenieDAO zlecenieDAO;
     private final SessionFactory factory;
 
-    DataBaseConnector(SessionFactory factory) {
+    public DataBaseConnector(SessionFactory factory) {
         this.factory = factory;
         this.czescDAO = new CzescDAO(this.factory);
         this.dzialDAO = new DzialDAO(this.factory);
@@ -98,6 +98,14 @@ public class DataBaseConnector {
         pojazdObservableList.addAll(pojazdDAO.findAll());
 
         return pojazdObservableList;
+    }
+
+    public ObservableList<Zlecenie> GetAllZlecenie() throws DatabaseException {
+        ObservableList<Zlecenie> zlecenieObservableList = FXCollections.observableArrayList();
+
+        zlecenieObservableList.addAll(zlecenieDAO.findAll());
+
+        return zlecenieObservableList;
     }
 
     public CzescDAO getCzescDAO() {
