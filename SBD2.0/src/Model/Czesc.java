@@ -74,4 +74,17 @@ public class Czesc {
     public String toString() {
         return this.nazwaKategorii + " " + this.cenaSprzedazy;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+
+        if (!(o instanceof Czesc))
+            return false;
+
+        Czesc czesc = (Czesc) o;
+
+        return czesc.getId().equals(this.id);
+    }
 }

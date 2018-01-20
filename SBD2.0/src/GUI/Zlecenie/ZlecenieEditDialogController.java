@@ -53,9 +53,12 @@ public class ZlecenieEditDialogController {
                 this.DataOdbPicker.setValue(this.zlecenie.getDataOdbioru().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             this.CenaField.setText(this.zlecenie.getCena().toString());
             try {
-                List<Czesc> asignedCzesc = this.main.getDataBaseConnector().getCzescDAO().GetAssignedCzescToZlecenie(this.zlecenie.getId());
+                List<Czesc> asignedCzesc = this.main.getDataBaseConnector().getCzescDAO().GetAssignedCzescToZlecenie(zlecenie.getId());
                 this.CzesciComboBox.getItems().addAll(asignedCzesc);
                 asignedCzesc.forEach(c -> this.CzesciComboBox.getCheckModel().check(c));
+
+                List<Dzial> assignedDzials = this.main.getDataBaseConnector().getDzialDAO().getDzialsConnectedToZlecenie(zlecenie.getId());
+                assignedDzials.forEach(d -> this.DzialyComboBox.getCheckModel().check(d));
             } catch (DatabaseException e) {
                 e.printStackTrace();
             }

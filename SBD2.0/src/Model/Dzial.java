@@ -59,4 +59,17 @@ public class Dzial {
     public String toString() {
         return this.nazwa;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+
+        if (!(o instanceof Dzial))
+            return false;
+
+        Dzial dzial = (Dzial) o;
+
+        return dzial.getId().equals(this.id);
+    }
 }

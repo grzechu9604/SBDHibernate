@@ -50,13 +50,13 @@ public class ZlecenieController {
             Zlecenie z = NaprawaTab.getSelectionModel().getSelectedItem();
             if (z != null) {
                 if (mainApp.showZlecenieEditDialog(z)) {
-                    showZlecenieData(z);
                     try {
                         this.mainApp.getDataBaseConnector().getZlecenieDAO().update(z);
                     } catch (DatabaseException e) {
                         AlertHandler ah = new AlertHandler();
                         ah.setAlert(e.getMessage(), this.mainApp);
                     }
+                    showZlecenieData(z);
                 }
             }
             this.refreshList();

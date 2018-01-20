@@ -39,7 +39,7 @@ public class ZlecenieDzialConnector implements Serializable {
 
         ZlecenieDzialConnector zdc = (ZlecenieDzialConnector) o;
 
-        return zdc.idDzialu.equals(this.idDzialu) && zdc.idZlecenia.equals(this.idZlecenia);
+        return zdc.getIdDzialu().equals(this.idDzialu) && zdc.getIdZlecenia().equals(this.idZlecenia);
     }
 
     public Long getIdDzialu() {

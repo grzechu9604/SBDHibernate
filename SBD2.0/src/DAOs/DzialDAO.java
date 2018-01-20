@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DzialDAO extends AbstractDAO<Dzial> {
@@ -49,6 +50,33 @@ public class DzialDAO extends AbstractDAO<Dzial> {
         } finally {
             session.close();
         }
+    }
 
+    public List<Dzial> GetAssignedDzialsToZlecenie(Long dzialId) throws DatabaseException {
+        Session session = this.factory.getCurrentSession();
+        session.getTransaction().begin();
+
+        try {
+            List<Dzial> results = new LinkedList<>();
+
+            Query<Object> query = session.createQuery("select d from Dzial as d " +
+                    " inner join ZlecenieDzialConnector z on d.id = z.idDzialu " +
+                    " where z.idZlecenia = :id ");
+            query.setParameter("id", dzialId.toString());
+
+            for (Object result : query.list()) {
+                Dzial d = (Dzial) result;
+                results.add(d);
+            }
+
+            session.getTransaction().commit();
+
+            return results;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw new DatabaseException("Nie udało się dodać obiektu do bazy danych.");
+        } finally {
+            session.close();
+        }
     }
 }
