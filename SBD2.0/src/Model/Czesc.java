@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "Czesci")
 public class Czesc {
     @Id
-    @SequenceGenerator(name = "CZESCI_SEQ", sequenceName = "CZESCI_SEQ")
+    @SequenceGenerator(name = "CZESCI_SEQ", sequenceName = "CZESCI_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "CZESCI_SEQ")
     @Column(name = "NR_CZESCI", nullable = false)
     private Long id;

@@ -10,7 +10,7 @@ import javax.persistence.*;
 })
 public class Pojazd {
     @Id
-    @SequenceGenerator(name = "POJAZDY_SEQ", sequenceName = "POJAZDY_SEQ")
+    @SequenceGenerator(name = "POJAZDY_SEQ", sequenceName = "POJAZDY_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "POJAZDY_SEQ")
     @Column(name = "NR_POJAZDU", nullable = false)
     private Long nr_pojazdu;

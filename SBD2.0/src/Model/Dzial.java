@@ -13,7 +13,7 @@ import javax.persistence.*;
 })
 public class Dzial {
     @Id
-    @SequenceGenerator(name = "DZIALY_SEQ", sequenceName = "DZIALY_SEQ")
+    @SequenceGenerator(name = "DZIALY_SEQ", sequenceName = "DZIALY_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "DZIALY_SEQ")
     @Column(name = "NR_DZIALU", nullable = false)
     private Long id;

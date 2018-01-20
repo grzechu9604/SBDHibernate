@@ -10,7 +10,7 @@ import java.util.LinkedList;
 @Table(name = "ZLECENIA")
 public class Zlecenie {
     @Id
-    @SequenceGenerator(name = "ZLECENIA_SEQ", sequenceName = "ZLECENIA_SEQ")
+    @SequenceGenerator(name = "ZLECENIA_SEQ", sequenceName = "ZLECENIA_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "ZLECENIA_SEQ")
     @Column(name = "NR_NAPRAWY", nullable = false)
     private Long id;
