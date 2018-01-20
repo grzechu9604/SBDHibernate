@@ -28,6 +28,7 @@ public class ZlecenieController {
     public CheckComboBox<Dzial> DzialyBox;
     public CheckComboBox<Czesc> CzesciBox;
     public Label CenaLabel;
+    public Label CenaSugerowanaLabel;
     private Main mainApp;
 
     @FXML
@@ -92,6 +93,7 @@ public class ZlecenieController {
         this.DataPlanowanegoZakonczniaDataLabel.setText("");
         this.DataOdbioruDataLabel.setText("");
         this.CenaLabel.setText("");
+        this.CenaSugerowanaLabel.setText("");
     }
 
     private void showZlecenieData(Zlecenie z) {
@@ -113,6 +115,7 @@ public class ZlecenieController {
             this.CenaLabel.setText(z.getCena().toString());
 
             try {
+                this.CenaSugerowanaLabel.setText(this.mainApp.getDataBaseConnector().getZlecenieDAO().getSugerowanaCena(z.getId()).toString());
                 List<Dzial> connectedDzials = new LinkedList<>();
                 List<Czesc> connectedCzesc = new LinkedList<>();
 

@@ -8,6 +8,7 @@ import sample.DatabaseException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.math.BigDecimal;
 import java.util.List;
 
 public abstract class AbstractDAO<T> {
@@ -136,6 +137,23 @@ public abstract class AbstractDAO<T> {
             throw new DatabaseException("Znaleziono powiązanie z obiektem, który próbujesz usunąć. Nie można wykonać akcji usunięcia");
         } finally {
             session.close();
+        }
+    }
+
+    public Double getSugerowanaCena(Long idZlecenia) throws DatabaseException {
+        Session session = this.factory.getCurrentSession();
+        session.getTransaction().begin();
+        try {
+            Query<BigDecimal> functionQuery = session.createNativeQuery("select LICZ_CENE( :idZlecenia ) from dual");
+            functionQuery.setParameter("idZlecenia", idZlecenia.toString());
+            BigDecimal result = functionQuery.getSingleResult();
+
+            session.getTransaction().commit();
+            return result.doubleValue();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
+            throw new DatabaseException("Nastąpił błąd przy pobraniu danych z funkcji");
         }
     }
 }
