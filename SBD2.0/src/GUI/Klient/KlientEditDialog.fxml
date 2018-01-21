@@ -21,10 +21,12 @@
                 <Label text="Nazwisko" GridPane.rowIndex="1"/>
                 <Label text="Numer telefonu" GridPane.rowIndex="2"/>
                 <Label text="Rabat" GridPane.rowIndex="3"/>
+                <Label fx:id="KlientDoZlaczeniaLabel" text="Połącz z klientem" GridPane.rowIndex="4" visible="false"/>
                 <TextField fx:id="ImieTexfField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                 <TextField fx:id="NazwiskoTexfField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                 <TextField fx:id="NrTelefonuTexfField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                 <TextField fx:id="RabatTexfField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <ComboBox fx:id="KlientDoZlaczenia" GridPane.columnIndex="1" GridPane.rowIndex="4" visible="false"/>
             </children>
         </GridPane>
         <ButtonBar prefHeight="40.0" prefWidth="200.0" layoutX="250.0" layoutY="250.0">
@@ -32,6 +34,8 @@
                 <Button mnemonicParsing="false" text="OK" fx:id="OKButton" onMouseClicked="#buttonOKClicked"/>
                 <Button mnemonicParsing="false" text="Anuluj" fx:id="AnulujButton"
                         onMouseClicked="#buttonAnulujClicked"/>
+                <Button mnemonicParsing="false" text="Złącz z klientem" fx:id="ZlaczKlientowButton"
+                        onMouseClicked="#buttonPolaczKlientow" visible="false"/>
             </buttons>
         </ButtonBar>
     </children>

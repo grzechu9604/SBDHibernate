@@ -63,4 +63,9 @@ public class Osoba {
     public String getImieINazwisko() {
         return imie + " " + nazwisko;
     }
+
+    @Override
+    public String toString() {
+        return this.imie + " " + this.nazwisko;
+    }
 }

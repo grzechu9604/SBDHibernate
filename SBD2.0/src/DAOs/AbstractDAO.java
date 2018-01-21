@@ -39,8 +39,10 @@ public abstract class AbstractDAO<T> {
 
             return elements;
         } catch (Exception e) {
-            session.close();
+            session.getTransaction().rollback();
             throw new DatabaseException("Nastąpił błąd przy pobraniu listy");
+        } finally {
+            session.close();
         }
     }
 
@@ -62,8 +64,10 @@ public abstract class AbstractDAO<T> {
 
             return element;
         } catch (Exception e) {
-            session.close();
+            session.getTransaction().rollback();
             throw new DatabaseException("Nastąpił błąd przy pobraniu listy");
+        } finally {
+            session.close();
         }
     }
 
@@ -144,7 +148,7 @@ public abstract class AbstractDAO<T> {
         Session session = this.factory.getCurrentSession();
         session.getTransaction().begin();
         try {
-            Query<BigDecimal> functionQuery = session.createNativeQuery("select LICZ_CENE( :idZlecenia ) from dual");
+            Query<BigDecimal> functionQuery = session.createNativeQuery("select paczka_z_bazy.LICZ_CENE( :idZlecenia ) from dual");
             functionQuery.setParameter("idZlecenia", idZlecenia.toString());
             BigDecimal result = functionQuery.getSingleResult();
 
@@ -152,8 +156,29 @@ public abstract class AbstractDAO<T> {
             return result.doubleValue();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            session.close();
             throw new DatabaseException("Nastąpił błąd przy pobraniu danych z funkcji");
+        } finally {
+            session.close();
         }
     }
+
+    public void mergeKlients(Long klientIdZ, Long klinetIdNa) throws DatabaseException {
+        Session session = this.factory.getCurrentSession();
+        session.getTransaction().begin();
+        try {
+            Query query = session.createNativeQuery(" call PACZKA_Z_BAZY.przepnij_klienta(:klient_z, :klient_na)");
+            query.setParameter("klient_z", klientIdZ.toString());
+            query.setParameter("klient_na", klinetIdNa.toString());
+            query.executeUpdate();
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw new DatabaseException("Nastąpił błąd przy pobraniu danych z funkcji");
+        } finally {
+            session.close();
+        }
+    }
+
+
 }

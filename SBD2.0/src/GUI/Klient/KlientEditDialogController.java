@@ -1,14 +1,22 @@
 package GUI.Klient;
 
+import GUI.AlertHandler;
 import Model.Klient;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import sample.DatabaseException;
+import sample.Main;
 
 
 public class KlientEditDialogController {
+    @FXML
+    private Label KlientDoZlaczeniaLabel;
+    @FXML
+    private Button ZlaczKlientowButton;
+    @FXML
+    private ComboBox<Klient> KlientDoZlaczenia;
     @FXML
     private TextField ImieTexfField;
     @FXML
@@ -24,6 +32,7 @@ public class KlientEditDialogController {
     private Klient klient;
     private Stage dialogStage;
     private boolean isOKClicked = false;
+    private Main main;
 
     public boolean isOKClicked() {
         return isOKClicked;
@@ -40,6 +49,17 @@ public class KlientEditDialogController {
             this.NazwiskoTexfField.setText(this.klient.getNazwisko());
             this.NrTelefonuTexfField.setText(this.klient.getNr_telefonu());
             this.RabatTexfField.setText(this.klient.getRabat().toString());
+
+            this.KlientDoZlaczenia.setVisible(true);
+            this.ZlaczKlientowButton.setVisible(true);
+            this.KlientDoZlaczeniaLabel.setVisible(true);
+            try {
+                this.KlientDoZlaczenia.getItems().setAll(this.main.getDataBaseConnector().GetAllKlient());
+                this.KlientDoZlaczenia.getItems().remove(this.klient);
+            } catch (DatabaseException e) {
+                AlertHandler ah = new AlertHandler();
+                ah.setAlert(e.getMessage(), this.main);
+            }
         }
     }
 
@@ -94,5 +114,23 @@ public class KlientEditDialogController {
     @FXML
     private void buttonAnulujClicked() {
         dialogStage.close();
+    }
+
+    public void buttonPolaczKlientow(MouseEvent mouseEvent) {
+        Klient klientToMerge = this.KlientDoZlaczenia.getValue();
+        if (klientToMerge != null) {
+            try {
+                this.main.getDataBaseConnector().getKlientDAO().mergeKlients(klientToMerge.getId(), this.klient.getId());
+            } catch (DatabaseException e) {
+                AlertHandler ah = new AlertHandler();
+                ah.setAlert(e.getMessage(), this.main);
+            }
+        }
+
+        dialogStage.close();
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
     }
 }

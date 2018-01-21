@@ -23,4 +23,22 @@ public class Klient extends Osoba {
     public void setRabat(Double rabat) {
         this.rabat = rabat;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+
+        if (!(o instanceof Klient))
+            return false;
+
+        Klient klient = (Klient) o;
+
+        return klient.getId().equals(this.getId());
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

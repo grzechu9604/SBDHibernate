@@ -230,7 +230,7 @@ public class Main extends Application {
         }
     }
 
-    public boolean showKlientEditDialog(Klient klient) {
+    public boolean showKlientEditDialog(Klient klient, Main main) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -248,6 +248,7 @@ public class Main extends Application {
             // Set the person into the controller.
             KlientEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setMain(main);
             controller.setKlient(klient);
 
             // Show the dialog and wait until the user closes it

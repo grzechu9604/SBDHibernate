@@ -63,7 +63,7 @@ public class KlientController {
         if (isValidSelection()) {
             Klient k = KlientsTab.getSelectionModel().getSelectedItem();
             if (k != null) {
-                if (mainApp.showKlientEditDialog(k)) {
+                if (mainApp.showKlientEditDialog(k, mainApp)) {
                     showKlientData(k);
                     try {
                         this.mainApp.getDataBaseConnector().getKlientDAO().update(k);
@@ -80,7 +80,7 @@ public class KlientController {
     @FXML
     private void handleNewKlient() {
         Klient k = new Klient();
-        if (mainApp.showKlientEditDialog(k)) {
+        if (mainApp.showKlientEditDialog(k, mainApp)) {
             try {
                 mainApp.getDataBaseConnector().getKlientDAO().insert(k);
             } catch (DatabaseException e) {
