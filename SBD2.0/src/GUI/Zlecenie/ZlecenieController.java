@@ -182,4 +182,13 @@ public class ZlecenieController {
         this.mainApp.initMainMenu();
     }
 
+    public void handleFiltruj(MouseEvent mouseEvent) {
+        ZlecenieCriteria zc = this.mainApp.showZleceniaFilter();
+        try {
+            this.NaprawaTab.setItems(this.mainApp.getDataBaseConnector().getFilteredZlecenie(zc));
+        } catch (DatabaseException e) {
+            AlertHandler ah = new AlertHandler();
+            ah.setAlert(e.getMessage(), this.mainApp);
+        }
+    }
 }

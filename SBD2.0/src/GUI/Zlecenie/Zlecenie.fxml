@@ -62,8 +62,8 @@
                                 <Label text="Cena" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
                                 <Label fx:id="CenaLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
                                 <Label text="Cena sugerowana" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-                                <Label fx:id="CenaSugerowanaLabel" text="Label" GridPane.columnIndex="1"
-                                       GridPane.rowIndex="7" disable="true"/>
+                                <Label fx:id="CenaSugerowanaLabel" disable="true" text="Label" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="7"/>
                             </children>
                         </GridPane>
                         <ButtonBar layoutX="14.0" layoutY="361.0" prefHeight="40.0" prefWidth="200.0">
@@ -74,6 +74,9 @@
                                 <Button mnemonicParsing="false" onMouseClicked="#handleBackToMainMenu" text="Wróć"/>
                             </buttons>
                         </ButtonBar>
+                        <ButtonBar layoutX="14.0" layoutY="401.0" prefHeight="40.0" prefWidth="200.0"/>
+                        <Button layoutX="213.0" layoutY="408.0" mnemonicParsing="false" onMouseClicked="#handleFiltruj"
+                                text="Filtruj"/>
                     </children>
                 </AnchorPane>
             </items>

@@ -96,7 +96,6 @@ public abstract class AbstractDAO<T> {
         } finally {
             session.close();
         }
-
     }
 
     public boolean insert(T element) throws DatabaseException {

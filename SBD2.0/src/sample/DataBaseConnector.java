@@ -1,6 +1,7 @@
 package sample;
 
 import DAOs.*;
+import GUI.Zlecenie.ZlecenieCriteria;
 import Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -146,5 +147,11 @@ public class DataBaseConnector {
 
     public SessionFactory getFactory() {
         return factory;
+    }
+
+    public ObservableList<Zlecenie> getFilteredZlecenie(ZlecenieCriteria zc) throws DatabaseException {
+        ObservableList<Zlecenie> zlecenieObservableList = FXCollections.observableArrayList();
+        zlecenieObservableList.addAll(this.zlecenieDAO.getFilteredZlecenie(zc));
+        return zlecenieObservableList;
     }
 }
