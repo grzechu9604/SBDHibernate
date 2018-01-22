@@ -165,10 +165,10 @@ public class ZlecenieDAO extends AbstractDAO<Zlecenie> {
             sqlQuery += " and z.DATA_WPLYWU >= :DATA_WPLYWU_OD ";
 
         if (zc.getDataZakDo() != null)
-            sqlQuery += " and z.DATA_ODBIORU <= :DATA_ODBIORU_DO ";
+            sqlQuery += " and z.PLANOWANE_ZAKONCZENIE <= :PLANOWANE_ZAKONCZENIE_DO ";
 
         if (zc.getDataZakOd() != null)
-            sqlQuery += " and z.DATA_ODBIORU >= :DATA_ODBIORU_OD ";
+            sqlQuery += " and z.PLANOWANE_ZAKONCZENIE >= :PLANOWANE_ZAKONCZENIE_OD ";
 
         return sqlQuery;
     }
@@ -200,10 +200,10 @@ public class ZlecenieDAO extends AbstractDAO<Zlecenie> {
             q.setParameter("DATA_WPLYWU_OD", zc.getDataWplywuOd());
 
         if (zc.getDataZakDo() != null)
-            q.setParameter("DATA_ODBIORU_DO", zc.getDataZakDo());
+            q.setParameter("PLANOWANE_ZAKONCZENIE_DO", zc.getDataZakDo());
 
         if (zc.getDataZakOd() != null)
-            q.setParameter(":DATA_ODBIORU_OD", zc.getDataZakOd());
+            q.setParameter("PLANOWANE_ZAKONCZENIE_OD", zc.getDataZakOd());
 
         return q;
     }
